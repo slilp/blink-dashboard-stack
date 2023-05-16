@@ -8,11 +8,13 @@ import {
   ListItemButton,
   ListItemText,
 } from "@mui/material";
+import { useRouter } from "next/router";
 import React from "react";
+import DesktopMiniSidebar from "./DesktopMiniSideBar";
 
 function SideBar() {
   const navItems = ["Home", "About", "Contact"];
-
+  const router = useRouter();
   const drawer = (
     <Box sx={{ textAlign: "center" }}>
       <Typography variant="h6" sx={{ my: 2 }}>
@@ -22,7 +24,10 @@ function SideBar() {
       <List>
         {navItems.map((item) => (
           <ListItem key={item} disablePadding>
-            <ListItemButton sx={{ textAlign: "center" }}>
+            <ListItemButton
+              sx={{ textAlign: "center" }}
+              onClick={() => router.push("/test/1/2/3/4/5")}
+            >
               <ListItemText primary={item} />
             </ListItemButton>
           </ListItem>
@@ -56,16 +61,7 @@ function SideBar() {
       >
         {drawer}
       </Drawer>
-      <Drawer
-        variant="permanent"
-        sx={{
-          display: { xs: "none", sm: "block" },
-          "& .MuiDrawer-paper": { boxSizing: "border-box", width: 240 },
-        }}
-        open
-      >
-        {drawer}
-      </Drawer>
+      <DesktopMiniSidebar />
     </Box>
   );
 }
