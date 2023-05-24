@@ -1,4 +1,4 @@
-import AbcIcon from "@mui/icons-material/Abc";
+import StorefrontIcon from "@mui/icons-material/Storefront";
 
 export default [
   {
@@ -7,12 +7,12 @@ export default [
       {
         title: "app",
         path: "/app",
-        icon: <AbcIcon />,
+        icon: <StorefrontIcon fontSize="small" />,
       },
       {
         title: "ecommerce",
         path: "/ecommerce",
-        icon: <AbcIcon />,
+        icon: <StorefrontIcon fontSize="small" />,
       },
     ],
   },
@@ -22,24 +22,24 @@ export default [
       {
         title: "app",
         path: "/app",
-        icon: <AbcIcon />,
+        icon: <StorefrontIcon fontSize="small" />,
         subMenus: [
           {
             title: "app-1",
             path: "/app",
-            icon: <AbcIcon />,
+            icon: <StorefrontIcon fontSize="small" />,
           },
           {
             title: "app-2",
             path: "/app",
-            icon: <AbcIcon />,
+            icon: <StorefrontIcon fontSize="small" />,
           },
         ],
       },
       {
         title: "ecommerce",
         path: "/ecommerce",
-        icon: <AbcIcon />,
+        icon: <StorefrontIcon fontSize="small" />,
       },
     ],
   },
@@ -50,115 +50,25 @@ export default [
       {
         title: "app",
         path: "/app",
-        icon: <AbcIcon />,
+        icon: <StorefrontIcon fontSize="small" />,
         roles: ["admin"],
         subMenus: [
           {
             title: "app-1",
             path: "/app",
-            icon: <AbcIcon />,
+            icon: <StorefrontIcon fontSize="small" />,
           },
           {
             title: "app-2",
             path: "/app",
-            icon: <AbcIcon />,
+            icon: <StorefrontIcon fontSize="small" />,
           },
         ],
       },
       {
         title: "ecommerce",
         path: "/ecommerce",
-        icon: <AbcIcon />,
-        roles: ["admin"],
-      },
-    ],
-  },
-  {
-    titleSection: "Invoice",
-    roles: ["admin"],
-    mainMenus: [
-      {
-        title: "app",
-        path: "/app",
-        icon: <AbcIcon />,
-        roles: ["admin"],
-        subMenus: [
-          {
-            title: "app-1",
-            path: "/app",
-            icon: <AbcIcon />,
-          },
-          {
-            title: "app-2",
-            path: "/app",
-            icon: <AbcIcon />,
-          },
-        ],
-      },
-      {
-        title: "ecommerce",
-        path: "/ecommerce",
-        icon: <AbcIcon />,
-        roles: ["admin"],
-      },
-    ],
-  },
-  {
-    titleSection: "Invoice",
-    roles: ["admin"],
-    mainMenus: [
-      {
-        title: "app",
-        path: "/app",
-        icon: <AbcIcon />,
-        roles: ["admin"],
-        subMenus: [
-          {
-            title: "app-1",
-            path: "/app",
-            icon: <AbcIcon />,
-          },
-          {
-            title: "app-2",
-            path: "/app",
-            icon: <AbcIcon />,
-          },
-        ],
-      },
-      {
-        title: "ecommerce",
-        path: "/ecommerce",
-        icon: <AbcIcon />,
-        roles: ["admin"],
-      },
-    ],
-  },
-  {
-    titleSection: "Invoice",
-    roles: ["admin"],
-    mainMenus: [
-      {
-        title: "app",
-        path: "/app",
-        icon: <AbcIcon />,
-        roles: ["admin"],
-        subMenus: [
-          {
-            title: "app-1",
-            path: "/app",
-            icon: <AbcIcon />,
-          },
-          {
-            title: "app-2",
-            path: "/app",
-            icon: <AbcIcon />,
-          },
-        ],
-      },
-      {
-        title: "ecommerce",
-        path: "/ecommerce",
-        icon: <AbcIcon />,
+        icon: <StorefrontIcon fontSize="small" />,
         roles: ["admin"],
       },
     ],

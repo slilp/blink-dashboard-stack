@@ -6,6 +6,7 @@ import {
   Box,
   Typography,
   Button,
+  Container,
 } from "@mui/material";
 
 function NavBar() {
@@ -18,27 +19,21 @@ function NavBar() {
   const navItems = ["Home", "About", "Contact"];
 
   return (
-    <AppBar
-      component="nav"
-      color="inherit"
-      elevation={0}
-      position="fixed"
-      sx={{
-        width: { sm: `calc(100% - ${240}px)` },
-        ml: { sm: `${240}px` },
-      }}
-    >
+    <AppBar component="nav">
       <Toolbar>
         <IconButton
           color="inherit"
           aria-label="open drawer"
           edge="start"
-          //   onClick={handleDrawerToggle}
+          // onClick={handleDrawerToggle}
           sx={{ mr: 2, display: { sm: "none" } }}
         >
-          {/* <MenuIcon /> */}
+          Menuicon{" "}
         </IconButton>
-        <Box sx={{ display: { xs: "none", sm: "block" } }}>
+        <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+          MUI
+        </Typography>
+        <Box>
           {navItems.map((item) => (
             <Button key={item} sx={{ color: "#fff" }}>
               {item}
