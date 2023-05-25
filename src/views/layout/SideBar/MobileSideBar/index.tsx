@@ -3,15 +3,15 @@ import { Drawer, Typography } from "@mui/material";
 import { useRouter } from "next/router";
 import Menus from "../Menus";
 
-function MobileSideBar({ open, setOpen }: any) {
+function MobileSideBar({ expandMobileMenu, setExpandMobileMenu }: any) {
   const navItems = ["Home", "About", "Contact"];
   const router = useRouter();
 
   return (
     <Drawer
       variant="temporary"
-      open={open}
-      onClose={() => setOpen(false)}
+      open={expandMobileMenu}
+      onClose={() => setExpandMobileMenu(false)}
       ModalProps={{
         keepMounted: true,
       }}

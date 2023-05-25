@@ -6,9 +6,7 @@ import MiniMenus from "../MiniMenus";
 import ArrowCircleLeftIcon from "@mui/icons-material/ArrowCircleLeft";
 import ArrowCircleRightIcon from "@mui/icons-material/ArrowCircleRight";
 
-function DesktopSidebar() {
-  const [expandMenu, setExpandMenu] = useState<boolean>(true);
-
+function DesktopSidebar({ expandMenu, setExpandMenu }: any) {
   return (
     <Drawer
       variant="permanent"

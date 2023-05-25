@@ -73,7 +73,7 @@ function Menus() {
                   </ListItemText>
                 </MenuButtonStyled>
                 {menu.subMenus && (
-                  <Collapse in={open} unmountOnExit>
+                  <Collapse in={open} unmountOnExit timeout={200}>
                     {menu.subMenus?.map((subMenu) => (
                       <MenuButtonStyled active={false}>
                         <MenuIconStyled> {subMenu.icon}</MenuIconStyled>

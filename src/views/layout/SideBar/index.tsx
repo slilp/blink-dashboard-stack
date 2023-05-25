@@ -14,11 +14,19 @@ import React, { useState } from "react";
 import DesktopSidebar from "./DesktopSideBar";
 import MobileSideBar from "./MobileSideBar";
 
-function SideBar() {
+function SideBar({
+  expandMenu,
+  setExpandMenu,
+  expandMobileMenu,
+  setExpandMobileMenu,
+}: any) {
   return (
     <Box component="nav">
-      <MobileSideBar />
-      <DesktopSidebar />
+      <MobileSideBar
+        expandMobileMenu={expandMobileMenu}
+        setExpandMobileMenu={setExpandMobileMenu}
+      />
+      <DesktopSidebar expandMenu={expandMenu} setExpandMenu={setExpandMenu} />
     </Box>
   );
 }
