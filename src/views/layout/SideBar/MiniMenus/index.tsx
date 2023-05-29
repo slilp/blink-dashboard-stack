@@ -8,11 +8,16 @@ import {
   Icon,
   List,
   Divider,
+  ListItemText,
+  ListItemIcon,
+  Box,
+  Button,
 } from "@mui/material";
 import navMenus from "../navMenus";
 import { useState } from "react";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import { grey } from "@mui/material/colors";
+import MenuPopover from "views/components/MenuPopover";
 
 type MenuButtonType = ListItemButtonBaseProps & {
   active: boolean;
@@ -20,8 +25,6 @@ type MenuButtonType = ListItemButtonBaseProps & {
 
 const MenuButtonStyled = styled(ListItemButton)<MenuButtonType>(
   ({ active, theme }) => ({
-    marginTop: theme.spacing(1),
-    marginBottom: theme.spacing(1),
     color: grey[700],
     borderRadius: "8px",
     ...(active && {
@@ -33,7 +36,18 @@ const MenuButtonStyled = styled(ListItemButton)<MenuButtonType>(
   })
 );
 
+const MenuIconStyled = styled(ListItemIcon)({
+  fontSize: "1.5rem",
+});
+
 function MiniMenus() {
+  const [anchorEl, setAnchorEl] = useState<HTMLButtonElement | null>(null);
+  const [selectMenu, setSelectMenu] = useState<any[]>([]);
+
+  const onOpenPopover = (event: any, menus: any[]) => {
+    setAnchorEl(event.currentTarget);
+    setSelectMenu(menus);
+  };
   return (
     <Stack px="0.5rem">
       {navMenus.map((navMenu, index) => (
@@ -51,44 +65,54 @@ function MiniMenus() {
                     flexWrap: "nowrap",
                   }}
                   active={false}
-                  onClick={() => setOpen(!open)}
+                  onClick={(e) => onOpenPopover(e, menu.subMenus as any[])}
                 >
                   {menu.icon}
                   <Typography variant="body2">{menu.title}</Typography>
                   {menu.subMenus && (
-                    <Icon
-                      sx={{
-                        fontSize: "1rem",
-                        position: "absolute",
-                        top: "50%",
-                        transform: "translateY(-50%)",
-                        right: "2px",
-                      }}
-                    >
-                      <ChevronRightIcon />
-                    </Icon>
+                    <Box>
+                      <Icon
+                        sx={{
+                          fontSize: "1rem",
+                          position: "absolute",
+                          top: "50%",
+                          transform: "translateY(-50%)",
+                          right: "2px",
+                        }}
+                      >
+                        <ChevronRightIcon />
+                      </Icon>
+                    </Box>
                   )}
                 </MenuButtonStyled>
-                {/* {menu.subMenus && (
-                  <Collapse in={open} unmountOnExit>
-                    {menu.subMenus?.map((subMenu) => (
-                      <MenuButtonStyled active={false}>
-                        <MenuIconStyled> {subMenu.icon}</MenuIconStyled>
-                        <ListItemText>
-                          <Typography variant="body2">
-                            {subMenu.title}
-                          </Typography>
-                        </ListItemText>
-                      </MenuButtonStyled>
-                    ))}
-                  </Collapse>
-                )} */}
               </>
             );
           })}
           {!(index + 1 === navMenus.length) && <Divider />}
         </List>
       ))}
+      <MenuPopover
+        open={Boolean(anchorEl)}
+        anchorEl={anchorEl}
+        onClose={() => setAnchorEl(null)}
+        anchorOrigin={{
+          vertical: "center",
+          horizontal: "right",
+        }}
+        transformOrigin={{
+          vertical: "center",
+          horizontal: "left",
+        }}
+      >
+        {selectMenu?.map((subMenu) => (
+          <MenuButtonStyled active={false}>
+            <MenuIconStyled> {subMenu.icon}</MenuIconStyled>
+            <ListItemText>
+              <Typography variant="body2">{subMenu.title}</Typography>
+            </ListItemText>
+          </MenuButtonStyled>
+        ))}
+      </MenuPopover>
     </Stack>
   );
 }

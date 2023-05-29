@@ -1,6 +1,5 @@
 import React from "react";
 import { Drawer, Typography, Box, IconButton } from "@mui/material";
-import { useState } from "react";
 import Menus from "../Menus";
 import MiniMenus from "../MiniMenus";
 import ArrowCircleLeftIcon from "@mui/icons-material/ArrowCircleLeft";
@@ -28,25 +27,23 @@ function DesktopSidebar({ expandMenu, setExpandMenu }: any) {
       }}
       open
     >
-      <Box display="flex" justifyContent="space-between" alignItems="center">
-        <Box display="flex" justifyContent="center" flex="1">
-          <Typography variant="h6" sx={{ my: 2 }}>
-            LOGO
-          </Typography>
-        </Box>
+      <Box display="flex" justifyContent="center">
+        <Typography variant="h6" sx={{ my: 2 }}>
+          LOGO
+        </Typography>
+      </Box>
 
-        <Box textAlign="end">
-          {!expandMenu && (
-            <IconButton onClick={() => setExpandMenu(true)}>
-              <ArrowCircleRightIcon />
-            </IconButton>
-          )}
-          {expandMenu && (
-            <IconButton onClick={() => setExpandMenu(false)}>
-              <ArrowCircleLeftIcon />
-            </IconButton>
-          )}
-        </Box>
+      <Box textAlign="center">
+        {!expandMenu && (
+          <IconButton onClick={() => setExpandMenu(true)}>
+            <ArrowCircleRightIcon />
+          </IconButton>
+        )}
+        {expandMenu && (
+          <IconButton onClick={() => setExpandMenu(false)}>
+            <ArrowCircleLeftIcon />
+          </IconButton>
+        )}
       </Box>
       {expandMenu ? <Menus /> : <MiniMenus />}
     </Drawer>
