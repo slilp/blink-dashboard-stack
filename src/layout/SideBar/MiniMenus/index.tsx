@@ -11,13 +11,12 @@ import {
   ListItemText,
   ListItemIcon,
   Box,
-  Button,
 } from "@mui/material";
 import navMenus from "../navMenus";
 import { useState } from "react";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import { grey } from "@mui/material/colors";
-import MenuPopover from "views/components/MenuPopover";
+import MenuPopover from "components/MenuPopover";
 
 type MenuButtonType = ListItemButtonBaseProps & {
   active: boolean;
@@ -53,7 +52,6 @@ function MiniMenus() {
       {navMenus.map((navMenu, index) => (
         <List sx={{ padding: "0" }}>
           {navMenu.mainMenus.map((menu) => {
-            const [open, setOpen] = useState<boolean>(false);
             return (
               <>
                 <MenuButtonStyled
@@ -77,7 +75,7 @@ function MiniMenus() {
                           position: "absolute",
                           top: "50%",
                           transform: "translateY(-50%)",
-                          right: "2px",
+                          right: "4px",
                         }}
                       >
                         <ChevronRightIcon />

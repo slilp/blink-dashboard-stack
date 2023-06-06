@@ -1,8 +1,8 @@
 import type { GetServerSideProps } from "next";
-import LoginPage from "views/login/pages/Login";
+import RegisterPage from "views/login/pages/Register";
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
   return { props: {} };
 };
 
-export default LoginPage;
+export default RegisterPage;

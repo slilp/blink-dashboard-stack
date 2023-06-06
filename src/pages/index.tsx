@@ -13,7 +13,6 @@ export default function Home() {
       Lorem ipsum dolor, sit amet consectetur adipisicing elit. Vel obcaecati
       enim repudiandae! Enim, dolores, repudiandae voluptatibus magni quo saepe
       vero eveniet tempore voluptates rerum unde iusto quam, officiis quod ab?
-      <Box height="3000vh" bgcolor="red"></Box>
     </>
   );
 }
