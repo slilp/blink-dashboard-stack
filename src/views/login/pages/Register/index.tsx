@@ -8,15 +8,40 @@ import {
   Button,
   IconButton,
   Divider,
+  InputAdornment,
 } from "@mui/material";
 import Head from "next/head";
-import React from "react";
+import React, { useState } from "react";
 import UnauthenNavbar from "views/login/components/UnauthenNavbar";
 import FacebookIcon from "@mui/icons-material/Facebook";
 import GoogleIcon from "@mui/icons-material/Google";
 import Link from "next/link";
+import {
+  registerFormValidationSchema,
+  RegisterFormType,
+} from "views/login/utils/registerForm";
+import { Controller, Resolver, useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { Visibility, VisibilityOff } from "@mui/icons-material";
 
 function RegisterPage() {
+  const resolver: Resolver<RegisterFormType> = yupResolver(
+    registerFormValidationSchema()
+  );
+  const {
+    handleSubmit,
+    register,
+    watch,
+    control,
+    reset,
+    resetField,
+    setValue,
+  } = useForm<RegisterFormType>({ resolver });
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+
+  const onSubmitRegister = () => {};
+
   return (
     <>
       <Head>
@@ -34,6 +59,7 @@ function RegisterPage() {
         </Grid>
         <Grid item xs={12} md={6}>
           <Box
+            component="form"
             display="flex"
             flexDirection="column"
             p="1rem"
@@ -61,11 +87,103 @@ function RegisterPage() {
               </Typography>
             </Box>
 
-            <TextField placeholder="username" fullWidth />
-            <TextField placeholder="password" fullWidth />
-            <TextField placeholder="confirm password" fullWidth />
+            <Controller
+              name="username"
+              control={control}
+              render={({
+                field: { onChange, value },
+                fieldState: { error },
+              }) => (
+                <TextField
+                  error={!!error?.message}
+                  helperText={error?.message || ""}
+                  onChange={onChange}
+                  value={value}
+                  label="Username"
+                  fullWidth
+                />
+              )}
+            />
+            <Controller
+              name="password"
+              control={control}
+              render={({
+                field: { onChange, value },
+                fieldState: { error },
+              }) => (
+                <TextField
+                  type={showPassword ? "text" : "password"}
+                  error={!!error?.message}
+                  onChange={onChange}
+                  value={value}
+                  label="Password"
+                  fullWidth
+                  helperText={error?.message || ""}
+                  InputProps={{
+                    endAdornment: (
+                      <InputAdornment position="end">
+                        <IconButton
+                          onClick={() => setShowPassword((state) => !state)}
+                          onMouseDown={() => setShowPassword((state) => !state)}
+                        >
+                          {showPassword ? (
+                            <Visibility fontSize="small" />
+                          ) : (
+                            <VisibilityOff fontSize="small" />
+                          )}
+                        </IconButton>
+                      </InputAdornment>
+                    ),
+                  }}
+                />
+              )}
+            />
 
-            <Button variant="contained" fullWidth>
+            <Controller
+              name="confirmPassword"
+              control={control}
+              render={({
+                field: { onChange, value },
+                fieldState: { error },
+              }) => (
+                <TextField
+                  type={showConfirmPassword ? "text" : "password"}
+                  error={!!error?.message}
+                  onChange={onChange}
+                  value={value}
+                  label="Confirm password"
+                  fullWidth
+                  helperText={error?.message || ""}
+                  InputProps={{
+                    endAdornment: (
+                      <InputAdornment position="end">
+                        <IconButton
+                          onClick={() =>
+                            setShowConfirmPassword((state) => !state)
+                          }
+                          onMouseDown={() =>
+                            setShowConfirmPassword((state) => !state)
+                          }
+                        >
+                          {showConfirmPassword ? (
+                            <Visibility fontSize="small" />
+                          ) : (
+                            <VisibilityOff fontSize="small" />
+                          )}
+                        </IconButton>
+                      </InputAdornment>
+                    ),
+                  }}
+                />
+              )}
+            />
+
+            <Button
+              onClick={handleSubmit(onSubmitRegister)}
+              type="button"
+              variant="contained"
+              fullWidth
+            >
               Create new account
             </Button>
             <Typography variant="body1" textAlign="center">

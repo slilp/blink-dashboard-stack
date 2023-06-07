@@ -8,15 +8,46 @@ import {
   Button,
   IconButton,
   Divider,
+  InputAdornment,
 } from "@mui/material";
 import Head from "next/head";
-import React from "react";
+import React, { useState } from "react";
 import UnauthenNavbar from "views/login/components/UnauthenNavbar";
 import FacebookIcon from "@mui/icons-material/Facebook";
 import GoogleIcon from "@mui/icons-material/Google";
 import Link from "next/link";
+import {
+  loginFormValidationSchema,
+  LoginFormType,
+} from "views/login/utils/loginForm";
+import { Controller, Resolver, useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { Visibility, VisibilityOff } from "@mui/icons-material";
+import { signIn } from "next-auth/react";
 
 function LoginPage() {
+  const resolver: Resolver<LoginFormType> = yupResolver(
+    loginFormValidationSchema()
+  );
+  const {
+    handleSubmit,
+    register,
+    watch,
+    control,
+    reset,
+    resetField,
+    setValue,
+  } = useForm<LoginFormType>({ resolver });
+  const [showPassword, setShowPassword] = useState(false);
+
+  const onSubmitLogin = (data: LoginFormType) => {
+    signIn("credentials", {
+      username: data.username,
+      password: data.password,
+      callbackUrl: "/",
+    });
+  };
+
   return (
     <>
       <Head>
@@ -34,6 +65,7 @@ function LoginPage() {
         </Grid>
         <Grid item xs={12} md={6}>
           <Box
+            component="form"
             display="flex"
             flexDirection="column"
             p="1rem"
@@ -60,13 +92,66 @@ function LoginPage() {
                 OR
               </Typography>
             </Box>
-
-            <TextField placeholder="username" fullWidth />
-            <TextField placeholder="password" fullWidth />
+            <Controller
+              name="username"
+              control={control}
+              render={({
+                field: { onChange, value },
+                fieldState: { error },
+              }) => (
+                <TextField
+                  error={!!error?.message}
+                  helperText={error?.message || ""}
+                  onChange={onChange}
+                  value={value}
+                  label="Username"
+                  fullWidth
+                />
+              )}
+            />
+            <Controller
+              name="password"
+              control={control}
+              render={({
+                field: { onChange, value },
+                fieldState: { error },
+              }) => (
+                <TextField
+                  type={showPassword ? "text" : "password"}
+                  error={!!error?.message}
+                  onChange={onChange}
+                  value={value}
+                  label="Password"
+                  fullWidth
+                  helperText={error?.message || ""}
+                  InputProps={{
+                    endAdornment: (
+                      <InputAdornment position="end">
+                        <IconButton
+                          onClick={() => setShowPassword((state) => !state)}
+                          onMouseDown={() => setShowPassword((state) => !state)}
+                        >
+                          {showPassword ? (
+                            <Visibility fontSize="small" />
+                          ) : (
+                            <VisibilityOff fontSize="small" />
+                          )}
+                        </IconButton>
+                      </InputAdornment>
+                    ),
+                  }}
+                />
+              )}
+            />
             <Typography variant="body2" textAlign="end">
               Forget password ?
             </Typography>
-            <Button variant="contained" fullWidth>
+            <Button
+              onClick={handleSubmit(onSubmitLogin)}
+              type="button"
+              variant="contained"
+              fullWidth
+            >
               Sign in
             </Button>
             <Typography variant="body1" textAlign="center">
