@@ -4,10 +4,13 @@ import CredentialsProvider from "next-auth/providers/credentials";
 const refreshToken = async (token: any) => {
   try {
     return {
-      ...token.user,
-      accessToken: "accessToken",
-      accessTokenExpires: Date.now() + 1000 * 1000,
-      refreshToken: "refreshtoken",
+      ...token,
+      user: {
+        ...token.user,
+        accessToken: "accessToken",
+        accessTokenExpires: Date.now() + 1000 * 1000,
+        refreshToken: "refreshtoken",
+      },
     };
   } catch (error) {
     return {
@@ -28,7 +31,7 @@ export const authOptions: NextAuthOptions = {
       async authorize(credentials, req) {
         const user = {
           id: "1",
-          name: credentials?.username,
+          name: "Slil Puangpoom",
           email: credentials?.username,
           accessToken: "accessTokenMock",
           refreshToken: "refreshTokenMock",
@@ -51,8 +54,7 @@ export const authOptions: NextAuthOptions = {
           user,
         };
       }
-
-      if (Date.now() < token.user.accessTokenExpires) {
+      if (Date.now() < token?.user?.accessTokenExpires) {
         return token;
       }
 

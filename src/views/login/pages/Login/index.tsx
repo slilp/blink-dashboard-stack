@@ -148,7 +148,7 @@ function LoginPage() {
             </Typography>
             <Button
               onClick={handleSubmit(onSubmitLogin)}
-              type="button"
+              type="submit"
               variant="contained"
               fullWidth
             >

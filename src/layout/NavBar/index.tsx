@@ -1,18 +1,40 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   AppBar,
-  Badge,
+  List,
+  ListItem,
   Box,
   Container,
   IconButton,
   Toolbar,
+  Divider,
+  ListItemText,
+  ListItemButton,
+  styled,
+  Typography,
+  ListItemIcon,
 } from "@mui/material";
 import MenuOpenIcon from "@mui/icons-material/MenuOpen";
 import MailIcon from "@mui/icons-material/Mail";
 import NotificationsIcon from "@mui/icons-material/Notifications";
 import AccountCircle from "@mui/icons-material/AccountCircle";
+import MenuPopover from "components/MenuPopover";
+import { InboxOutlined, LogoutOutlined } from "@mui/icons-material";
+import { signOut, useSession } from "next-auth/react";
+import { grey } from "@mui/material/colors";
+
+const MenuButtonStyled = styled(ListItemButton)(({ theme }) => ({
+  color: grey[700],
+  borderRadius: "8px",
+}));
 
 function NavBar({ drawerWidth, setExpandMobileMenu }: any) {
+  const [anchorEl, setAnchorEl] = useState<HTMLButtonElement | null>(null);
+  const { data: session } = useSession();
+  const onOpenPopover = (event: any) => {
+    setAnchorEl(event.currentTarget);
+  };
+
   return (
     <AppBar
       sx={{
@@ -44,29 +66,70 @@ function NavBar({ drawerWidth, setExpandMobileMenu }: any) {
         </IconButton>
         <Container maxWidth="xl">
           <Box display="flex" justifyContent="flex-end" width="100%">
-            <IconButton size="large" aria-label="show 4 new mails">
-              <Badge badgeContent={4} color="error">
-                <MailIcon />
-              </Badge>
-            </IconButton>
-            <IconButton size="large" aria-label="show 17 new notifications">
-              <Badge badgeContent={17} color="error">
-                <NotificationsIcon />
-              </Badge>
-            </IconButton>
             <IconButton
               size="large"
               edge="end"
               aria-label="account of current user"
-              // aria-controls={menuId}
               aria-haspopup="true"
-              // onClick={handleProfileMenuOpen}
+              onClick={onOpenPopover}
             >
               <AccountCircle />
             </IconButton>
           </Box>
         </Container>
       </Toolbar>
+      <MenuPopover
+        sx={{ width: "250px" }}
+        open={Boolean(anchorEl)}
+        anchorEl={anchorEl}
+        onClose={() => setAnchorEl(null)}
+        anchorOrigin={{
+          vertical: "bottom",
+          horizontal: "center",
+        }}
+        transformOrigin={{
+          vertical: "top",
+          horizontal: "center",
+        }}
+      >
+        <Box sx={{ width: "100%", maxWidth: 360, bgcolor: "background.paper" }}>
+          <nav aria-label="main mailbox folders">
+            <List>
+              <ListItem disablePadding>
+                <MenuButtonStyled>
+                  <Typography variant="body2" noWrap>
+                    {session?.user?.name}
+                  </Typography>
+                </MenuButtonStyled>
+              </ListItem>
+              <ListItem disablePadding>
+                <MenuButtonStyled>
+                  <Typography variant="body2" noWrap>
+                    {session?.user?.email}
+                  </Typography>
+                </MenuButtonStyled>
+              </ListItem>
+            </List>
+          </nav>
+          <Divider />
+          <nav aria-label="secondary mailbox folders">
+            <List>
+              <ListItem disablePadding>
+                <MenuButtonStyled
+                  onClick={() => signOut({ callbackUrl: "/login" })}
+                >
+                  <ListItemIcon sx={{ fontSize: "1.5rem" }}>
+                    <LogoutOutlined />
+                  </ListItemIcon>
+                  <ListItemText>
+                    <Typography variant="body2">Logout</Typography>
+                  </ListItemText>
+                </MenuButtonStyled>
+              </ListItem>
+            </List>
+          </nav>
+        </Box>
+      </MenuPopover>
     </AppBar>
   );
 }

@@ -1,7 +1,6 @@
 import { Box, Button } from "@mui/material";
 import { useSession } from "next-auth/react";
 import Head from "next/head";
-import { signOut } from "next-auth/react";
 
 export default function Home() {
   const { data: session } = useSession();
@@ -13,10 +12,10 @@ export default function Home() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      {JSON.stringify(session?.user)}
-      <Button onClick={() => signOut({ callbackUrl: "/login" })}>
-        Sign out
-      </Button>
+      Lorem ipsum dolor sit amet consectetur adipisicing elit. Quis eos ipsa
+      numquam vel. Ipsam repudiandae omnis, ex commodi, id exercitationem
+      repellendus reprehenderit assumenda, voluptate qui eius iusto perferendis
+      quos perspiciatis.
     </>
   );
 }
