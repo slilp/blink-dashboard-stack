@@ -95,23 +95,19 @@ function NavBar({ drawerWidth, setExpandMobileMenu }: any) {
         <Box sx={{ width: "100%", maxWidth: 360, bgcolor: "background.paper" }}>
           <nav aria-label="main mailbox folders">
             <List>
-              <ListItem disablePadding>
-                <MenuButtonStyled>
-                  <Typography variant="body2" noWrap>
-                    {session?.user?.name}
-                  </Typography>
-                </MenuButtonStyled>
+              <ListItem>
+                <Typography variant="body2" noWrap>
+                  {session?.user?.name}
+                </Typography>
               </ListItem>
-              <ListItem disablePadding>
-                <MenuButtonStyled>
-                  <Typography variant="body2" noWrap>
-                    {session?.user?.email}
-                  </Typography>
-                </MenuButtonStyled>
+              <ListItem>
+                <Typography variant="body2" noWrap color="grey.700">
+                  {session?.user?.email}
+                </Typography>
               </ListItem>
             </List>
           </nav>
-          <Divider />
+          <Divider sx={{ borderStyle: "dashed" }} />
           <nav aria-label="secondary mailbox folders">
             <List>
               <ListItem disablePadding>

@@ -3,16 +3,13 @@ import { NextResponse } from "next/server";
 
 export default withAuth(
   function middleware(req) {
+    const userSession = req.nextauth.token?.user as any;
     if (
       req.nextUrl.pathname.startsWith("/admin") &&
-      req.nextauth.token?.role !== "admin"
+      userSession?.role !== "admin"
     )
       return NextResponse.rewrite(
-        new URL("/auth/login?message=You are nit authorize", req.url)
-      );
-    if (!req.nextauth.token)
-      return NextResponse.rewrite(
-        new URL("/auth/login?message=No login in", req.url)
+        `${req.nextUrl.protocol}//${req.nextUrl.host}/401`
       );
   },
   {
@@ -24,4 +21,6 @@ export default withAuth(
   }
 );
 
-export const config = { matcher: ["/"] };
+export const config = {
+  matcher: ["/((?!login|register).*)"],
+};

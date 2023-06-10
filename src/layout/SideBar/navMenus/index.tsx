@@ -1,73 +1,49 @@
 import StorefrontIcon from "@mui/icons-material/Storefront";
+import HomeIcon from "@mui/icons-material/Home";
+import CategoryIcon from "@mui/icons-material/Category";
+import InventoryIcon from "@mui/icons-material/Inventory";
+import AddCircleIcon from "@mui/icons-material/AddCircle";
 
-export default [
+export const navMenus = [
   {
-    titleSection: "General",
+    titleSection: "Dashboard",
     mainMenus: [
       {
-        title: "app",
-        path: "/app",
-        icon: <StorefrontIcon fontSize="small" />,
-      },
-      {
-        title: "ecommerce",
-        path: "/ecommerce",
-        icon: <StorefrontIcon fontSize="small" />,
+        title: "Home",
+        path: "/",
+        icon: <HomeIcon fontSize="small" />,
       },
     ],
   },
   {
-    titleSection: "Ecommerce",
+    titleSection: "Product",
     mainMenus: [
       {
-        title: "app",
-        path: "/app",
-        icon: <StorefrontIcon fontSize="small" />,
+        title: "Product",
+        path: "/product",
+        icon: <CategoryIcon fontSize="small" />,
         subMenus: [
           {
-            title: "app-1",
-            path: "/app",
-            icon: <StorefrontIcon fontSize="small" />,
+            title: "View Products",
+            path: "/product/view",
+            icon: <InventoryIcon fontSize="small" />,
           },
           {
-            title: "app-2",
-            path: "/app",
-            icon: <StorefrontIcon fontSize="small" />,
+            title: "Create New Product",
+            path: "/product/create",
+            icon: <AddCircleIcon fontSize="small" />,
           },
         ],
       },
-      {
-        title: "ecommerce",
-        path: "/ecommerce",
-        icon: <StorefrontIcon fontSize="small" />,
-      },
     ],
   },
   {
-    titleSection: "Invoice",
+    titleSection: "Admin",
     roles: ["admin"],
     mainMenus: [
       {
-        title: "app",
-        path: "/app",
-        icon: <StorefrontIcon fontSize="small" />,
-        roles: ["admin"],
-        subMenus: [
-          {
-            title: "app-1",
-            path: "/app",
-            icon: <StorefrontIcon fontSize="small" />,
-          },
-          {
-            title: "app-2",
-            path: "/app",
-            icon: <StorefrontIcon fontSize="small" />,
-          },
-        ],
-      },
-      {
-        title: "ecommerce",
-        path: "/ecommerce",
+        title: "Shop",
+        path: "/admin/shop",
         icon: <StorefrontIcon fontSize="small" />,
         roles: ["admin"],
       },

@@ -36,6 +36,7 @@ export const authOptions: NextAuthOptions = {
           accessToken: "accessTokenMock",
           refreshToken: "refreshTokenMock",
           accessTokenExpires: Date.now() + 1000 * 1000,
+          role: credentials?.username === "admin@email.com" ? "admin" : "user",
         };
 
         if (user) {

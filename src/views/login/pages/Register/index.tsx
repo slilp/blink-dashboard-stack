@@ -180,7 +180,7 @@ function RegisterPage() {
 
             <Button
               onClick={handleSubmit(onSubmitRegister)}
-              type="button"
+              type="submit"
               variant="contained"
               fullWidth
             >
