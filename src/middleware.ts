@@ -14,8 +14,8 @@ export default withAuth(
   },
   {
     callbacks: {
-      authorized: ({ token }) => {
-        return !!token;
+      authorized: ({ token }: any) => {
+        return !!token || token?.user?.error;
       },
     },
   }

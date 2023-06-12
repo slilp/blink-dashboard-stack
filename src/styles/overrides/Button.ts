@@ -6,7 +6,7 @@ function Button(theme: Theme) {
       styleOverrides: {
         root: ({ state }: { state: ButtonProps }) => ({
           borderRadius: "12px",
-          padding: "0.5rem",
+          padding: "0.5rem 1rem ",
         }),
       },
     },
