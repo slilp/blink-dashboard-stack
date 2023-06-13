@@ -1,5 +1,5 @@
 import React, { useMemo, useState } from "react";
-import { Box, Container, Toolbar } from "@mui/material";
+import { Box, Breadcrumbs, Container, Stack, Toolbar } from "@mui/material";
 import NavBar from "./NavBar";
 import SideBar from "./SideBar";
 
@@ -14,6 +14,7 @@ function Layout({ children }: any) {
         drawerWidth={drawerWidth}
         setExpandMobileMenu={setExpandMobileMenu}
       />
+
       <SideBar
         expandMenu={expandMenu}
         setExpandMenu={setExpandMenu}
@@ -22,12 +23,20 @@ function Layout({ children }: any) {
       />
       <Box
         sx={{
-          ml: { sm: `${drawerWidth}px` },
-          width: { sm: `calc(100% - ${drawerWidth}px)` },
+          width: {
+            xs: "100%",
+            md: `calc(100% - ${drawerWidth}px)`,
+          },
+          ml: { xs: "0px", md: `${drawerWidth}px` },
         }}
       >
         <Container maxWidth="xl" sx={{ mt: 4, mb: 4 }}>
           <Toolbar />
+          {/* <Stack spacing={2} color="red">
+            <Breadcrumbs separator="›">Home</Breadcrumbs>
+            <Breadcrumbs separator="›">Product</Breadcrumbs>
+            <Breadcrumbs separator="›">Shop</Breadcrumbs>
+          </Stack> */}
           {children}
         </Container>
       </Box>

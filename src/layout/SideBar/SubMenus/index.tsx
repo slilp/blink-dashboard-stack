@@ -18,7 +18,6 @@ import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import { grey } from "@mui/material/colors";
 import { useRouter } from "next/router";
-import useActiveUrl from "../useActiveUrl";
 
 type MenuButtonType = ListItemButtonBaseProps & {
   active: boolean;

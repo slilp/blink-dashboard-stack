@@ -10,13 +10,14 @@ import {
   Typography,
   TablePagination,
   CircularProgress,
+  Paper,
 } from "@mui/material";
 import React from "react";
 
-type ColumnTable<T> = {
+export type ColumnTable<T> = {
   key: string;
   title: string;
-  dataIndex: keyof T;
+  dataIndex: keyof T | null;
   render?: (value: T, index: number) => React.ReactNode;
 };
 
@@ -61,81 +62,78 @@ const Table = <T extends object>({
   const isNotFound = dataSource.length === 0;
   return (
     <Box>
-      <TableContainer sx={{ positon: "relative", overflow: "unset" }}>
-        <MuiTable size="medium" sx={{ minWidth: 900 }}>
-          <TableHead>
-            <TableRow>
-              {columns.map((column) => (
-                <TableCell key={column.key}>
-                  {onSort && orderBy === column.key ? (
-                    <TableSortLabel
-                      hideSortIcon
-                      active={orderBy === column.key}
-                      direction={
-                        orderBy === column.key ? order || "desc" : "asc"
+      <Paper sx={{ width: "100%", overflow: "hidden" }}>
+        <TableContainer>
+          <MuiTable stickyHeader>
+            <TableHead>
+              <TableRow>
+                {columns.map((column) => (
+                  <TableCell key={column.key}>
+                    {onSort && orderBy === column.key ? (
+                      <TableSortLabel
+                        hideSortIcon
+                        active={orderBy === column.key}
+                        direction={
+                          orderBy === column.key ? order || "desc" : "asc"
+                        }
+                        onClick={() => onSort(column.key)}
+                      >
+                        <Typography variant="subtitle2" color="grey.600">
+                          {column.title}
+                        </Typography>
+                      </TableSortLabel>
+                    ) : (
+                      column.title
+                    )}
+                  </TableCell>
+                ))}
+              </TableRow>
+            </TableHead>
+            {!isNotFound && (
+              <TableBody>
+                {dataSource.map((item, index) => (
+                  <TableRow
+                    key={`row-table-${index}`}
+                    hover
+                    onClick={() => {
+                      onClickRow && onClickRow(item);
+                    }}
+                    sx={{ cursor: onClickRow ? "pointer" : "auto" }}
+                  >
+                    {columns.map((column, index) => {
+                      if (column?.render) {
+                        return (
+                          <TableCell key={`cell-table-${index}`}>
+                            {column.render(item, index)}
+                          </TableCell>
+                        );
+                      } else {
+                        return (
+                          <TableCell key={`cell-table-${index}`}>
+                            {column.dataIndex !== null &&
+                              (item[column.dataIndex] as string)}
+                          </TableCell>
+                        );
                       }
-                      onClick={() => onSort(column.key)}
-                    >
-                      <Typography variant="subtitle2" color="grey.600">
-                        {column.title}
-                      </Typography>
-
-                      {orderBy === column.key ? (
-                        <Box>
-                          {order === "asc"
-                            ? "sorted ascending"
-                            : "sorted descending"}
-                        </Box>
-                      ) : null}
-                    </TableSortLabel>
-                  ) : (
-                    column.title
-                  )}
-                </TableCell>
-              ))}
-            </TableRow>
-          </TableHead>
-          {!isNotFound && (
-            <TableBody>
-              {dataSource.map((item, index) => (
-                <TableRow
-                  key={`row-table-${index}`}
-                  hover
-                  onClick={() => {
-                    onClickRow && onClickRow(item);
-                  }}
-                  sx={{ cursor: onClickRow ? "pointer" : "auto" }}
-                >
-                  {columns.map((column, index) => {
-                    if (column?.render) {
-                      return (
-                        <TableCell>{column.render(item, index)}</TableCell>
-                      );
-                    } else {
-                      return (
-                        <TableCell>
-                          {item[column.dataIndex] as string}
-                        </TableCell>
-                      );
-                    }
-                  })}
-                </TableRow>
-              ))}
-            </TableBody>
-          )}
-        </MuiTable>
-      </TableContainer>
+                    })}
+                  </TableRow>
+                ))}
+              </TableBody>
+            )}
+          </MuiTable>
+        </TableContainer>
+      </Paper>
 
       {!isNotFound && !isHidePagination && (
-        <Box sx={{ position: "relative" }}>
-          <TablePagination
-            count={totalRecord}
-            page={page}
-            rowsPerPage={rowsPerPage}
-            onPageChange={onChangePage}
-            onRowsPerPageChange={onChangeRowPerPage}
-          />
-        </Box>
+        <TablePagination
+          rowsPerPageOptions={rowsPerPageOptions}
+          component="div"
+          count={totalRecord}
+          rowsPerPage={rowsPerPage}
+          page={page}
+          onPageChange={onChangePage}
+          onRowsPerPageChange={onChangeRowPerPage}
+        />
       )}
       {isLoading && (
         <Box textAlign="center" my={4}>

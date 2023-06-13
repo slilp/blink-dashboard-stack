@@ -52,13 +52,16 @@ function NavBar({ drawerWidth, setExpandMobileMenu }: any) {
     >
       <Toolbar
         sx={{
-          width: { sm: `calc(100% - ${drawerWidth}px)` },
-          ml: { sm: `${drawerWidth}px` },
+          width: {
+            xs: "100%",
+            md: `calc(100% - ${drawerWidth}px)`,
+          },
+          ml: { xs: "0px", md: `${drawerWidth}px` },
         }}
       >
         <IconButton
           sx={{
-            display: { xs: "block", sm: "none" },
+            display: { xs: "block", md: "none" },
           }}
           onClick={() => setExpandMobileMenu(true)}
         >

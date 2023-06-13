@@ -9,8 +9,9 @@ function HomeTopSelling() {
         Best Selling Products 🏆
       </Typography>
       <Box display="flex" flexDirection="column">
-        {[1, 2, 3, 4, 5].map(() => (
+        {[1, 2, 3, 4, 5].map((index) => (
           <Box
+            key={`top-sell-${index}`}
             display="flex"
             justifyContent="space-between"
             alignItems="center"
