@@ -29,7 +29,7 @@ export const navMenus = [
             icon: <InventoryIcon fontSize="small" />,
           },
           {
-            title: "Create New Product",
+            title: "Create Product",
             path: "/product/create",
             icon: <AddCircleIcon fontSize="small" />,
           },

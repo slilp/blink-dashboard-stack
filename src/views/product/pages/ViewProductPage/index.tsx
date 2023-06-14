@@ -116,40 +116,6 @@ const columns: ColumnTable<IProduct>[] = [
       </IconButton>
     ),
   },
-  {
-    title: "",
-    dataIndex: "img",
-    key: "imgProduct",
-    render: (val: IProduct) => (
-      <Box component="img" src={val.img} height="50px" width="50px" />
-    ),
-  },
-  {
-    title: "Code",
-    dataIndex: "code",
-    key: "code",
-  },
-  {
-    title: "Name",
-    dataIndex: "name",
-    key: "name",
-  },
-  {
-    title: "Brand",
-    dataIndex: "brand",
-    key: "brand",
-    render: (val: IProduct) => <Box bgcolor="red">{val.brand}</Box>,
-  },
-  {
-    title: "Action",
-    dataIndex: null,
-    key: "action",
-    render: (val: IProduct) => (
-      <IconButton>
-        <MoreVertRounded />
-      </IconButton>
-    ),
-  },
 ];
 
 function ProductViewPage() {
