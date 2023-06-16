@@ -4,34 +4,57 @@ import CategoryIcon from "@mui/icons-material/Category";
 import InventoryIcon from "@mui/icons-material/Inventory";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
 
-export const navMenus = [
+type NavMenuType = {
+  titleSection: string;
+  roles: string[];
+  mainMenus: {
+    title: string;
+    path: string;
+    icon: React.ReactNode;
+    roles: string[];
+    subMenus?: {
+      title: string;
+      path: string;
+      icon: React.ReactNode;
+      roles: string[];
+    }[];
+  }[];
+};
+
+export const navMenus: NavMenuType[] = [
   {
     titleSection: "Dashboard",
+    roles: [],
     mainMenus: [
       {
         title: "Home",
         path: "/",
         icon: <HomeIcon fontSize="small" />,
+        roles: [],
       },
     ],
   },
   {
     titleSection: "Product",
+    roles: [],
     mainMenus: [
       {
         title: "Product",
         path: "/product",
         icon: <CategoryIcon fontSize="small" />,
+        roles: [],
         subMenus: [
           {
             title: "View Products",
             path: "/product/view",
             icon: <InventoryIcon fontSize="small" />,
+            roles: [],
           },
           {
             title: "Create Product",
             path: "/product/create",
             icon: <AddCircleIcon fontSize="small" />,
+            roles: ["admin"],
           },
         ],
       },

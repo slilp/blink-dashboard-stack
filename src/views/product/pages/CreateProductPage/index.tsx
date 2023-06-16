@@ -26,6 +26,7 @@ import {
 import { yupResolver } from "@hookform/resolvers/yup";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
 import { Controller, Resolver, useForm } from "react-hook-form";
+import UploadFile from "components/UploadFile";
 
 const promotionList = [
   { promotionId: "promo1", label: "10% discount" },
@@ -71,14 +72,32 @@ function CreateProductPage() {
       <Box display="flex" justifyContent="space-between" mb="2rem">
         <Typography variant="h6">Create New Product</Typography>
       </Box>
-      {JSON.stringify(watchAllField)}
       <Box component="form">
         <Grid container spacing={1}>
           <Grid item xs={12} md={4}>
             <Card sx={{ height: "100%" }}>
               <Grid container spacing={1}>
                 <Grid item xs={12}>
-                  <TextField label="Password" fullWidth />
+                  <Controller
+                    defaultValue=""
+                    name="img"
+                    control={control}
+                    render={({
+                      field: { onChange, value },
+                      fieldState: { error },
+                    }) => (
+                      <UploadFile
+                        acceptType={{
+                          "image/*": [],
+                        }}
+                        maxSize={10485760}
+                        file={value}
+                        errorMesssage={error?.message}
+                        onChange={onChange}
+                        onRemove={() => onChange(null)}
+                      />
+                    )}
+                  />
                 </Grid>
               </Grid>
             </Card>
@@ -129,6 +148,7 @@ function CreateProductPage() {
                 </Grid>
                 <Grid item xs={12} sm={6}>
                   <Controller
+                    defaultValue=""
                     name="brand"
                     control={control}
                     render={({
@@ -136,6 +156,7 @@ function CreateProductPage() {
                       fieldState: { error },
                     }) => (
                       <TextField
+                        defaultValue=""
                         error={!!error?.message}
                         helperText={error?.message || ""}
                         onChange={onChange}
@@ -148,6 +169,7 @@ function CreateProductPage() {
                 </Grid>
                 <Grid item xs={12} sm={6}>
                   <Controller
+                    defaultValue=""
                     name="color"
                     control={control}
                     render={({
@@ -155,6 +177,7 @@ function CreateProductPage() {
                       fieldState: { error },
                     }) => (
                       <TextField
+                        defaultValue=""
                         error={!!error?.message}
                         helperText={error?.message || ""}
                         onChange={onChange}
@@ -167,6 +190,7 @@ function CreateProductPage() {
                 </Grid>
                 <Grid item xs={12} sm={6}>
                   <Controller
+                    defaultValue={false}
                     name="warranty"
                     control={control}
                     render={({

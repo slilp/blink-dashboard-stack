@@ -12,15 +12,16 @@ import {
   Icon,
   List,
 } from "@mui/material";
-import { navMenus } from "../navMenus";
 import { useState } from "react";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import { grey } from "@mui/material/colors";
 import { useRouter } from "next/router";
+import CircleIcon from "@mui/icons-material/Circle";
+import { useSession } from "next-auth/react";
 
 type MenuButtonType = ListItemButtonBaseProps & {
-  active: boolean;
+  active?: boolean;
 };
 
 const MenuButtonStyled = styled(ListItemButton)<MenuButtonType>(
@@ -49,12 +50,17 @@ const MenuIconStyled = styled(ListItemIcon)({
 function SubMenus({ menu, index }: any) {
   const [open, setOpen] = useState<boolean>(false);
   const router = useRouter();
+  const { data: session } = useSession();
+  const role: string = (session?.user as any)?.role;
 
   return (
     <>
       <MenuButtonStyled
         key={`mainmenu-${index}`}
-        active={menu?.subMenus ? false : router.pathname === menu.path}
+        active={
+          router.pathname === menu.path ||
+          menu?.subMenus?.some((m: any) => router.pathname === m.path)
+        }
         onClick={() =>
           menu?.subMenus ? setOpen(!open) : router.push(menu.path)
         }
@@ -75,18 +81,26 @@ function SubMenus({ menu, index }: any) {
       </MenuButtonStyled>
       {menu?.subMenus && (
         <Collapse in={open} unmountOnExit timeout={200}>
-          {menu?.subMenus?.map((subMenu: any, index: number) => (
-            <MenuButtonStyled
-              key={`submenu-${index}`}
-              active={router.pathname === subMenu.path}
-              onClick={() => router.push(subMenu.path)}
-            >
-              <MenuIconStyled> {subMenu.icon}</MenuIconStyled>
-              <ListItemText>
-                <Typography variant="body2">{subMenu.title}</Typography>
-              </ListItemText>
-            </MenuButtonStyled>
-          ))}
+          {menu?.subMenus?.map((subMenu: any, index: number) =>
+            subMenu.roles.length === 0 || subMenu.roles.includes(role) ? (
+              <MenuButtonStyled
+                key={`submenu-${index}`}
+                onClick={() => router.push(subMenu.path)}
+              >
+                <ListItemIcon>
+                  <CircleIcon
+                    sx={{ fontSize: "0.65rem" }}
+                    color={
+                      router.pathname === subMenu.path ? "primary" : "inherit"
+                    }
+                  />
+                </ListItemIcon>
+                <ListItemText>
+                  <Typography variant="body2">{subMenu.title}</Typography>
+                </ListItemText>
+              </MenuButtonStyled>
+            ) : null
+          )}
         </Collapse>
       )}
     </>
