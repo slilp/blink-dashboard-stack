@@ -36,7 +36,7 @@ const promotionList = [
   { promotionId: "promo5", label: "Buy 1 get 1 free" },
 ];
 
-function CreateProductPage() {
+function CreateProductPage({ productInfo }: any) {
   const resolver: Resolver<CreateProductFormType> = yupResolver(
     createProductFormValidationSchema()
   );
@@ -56,11 +56,7 @@ function CreateProductPage() {
   };
 
   useEffect(() => {
-    reset({
-      name: "GGGG",
-      status: "selling",
-      promotions: [{ promotionId: "promo3", label: "30% discount" }],
-    });
+    if (productInfo) reset(productInfo);
   }, []);
 
   return (
@@ -135,11 +131,12 @@ function CreateProductPage() {
                       fieldState: { error },
                     }) => (
                       <TextField
+                        defaultValue=""
                         inputProps={{ inputMode: "numeric", pattern: "[0-9]*" }}
                         error={!!error?.message}
                         helperText={error?.message || ""}
                         onChange={onChange}
-                        value={value}
+                        value={value + ""}
                         label="Stock"
                         fullWidth
                       />
@@ -221,6 +218,7 @@ function CreateProductPage() {
                 </Grid>
                 <Grid item xs={12} sm={6}>
                   <Controller
+                    defaultValue=""
                     name="desc"
                     control={control}
                     render={({
@@ -228,6 +226,7 @@ function CreateProductPage() {
                       fieldState: { error },
                     }) => (
                       <TextField
+                        defaultValue=""
                         multiline
                         rows={3}
                         error={!!error?.message}
