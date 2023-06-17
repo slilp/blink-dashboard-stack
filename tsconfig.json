@@ -19,6 +19,11 @@
     },
     "baseUrl": "src"
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
+  "include": [
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    "src/pages/product/create/[code]"
+  ],
   "exclude": ["node_modules"]
 }

@@ -8,6 +8,7 @@ import { Grid } from "@mui/material";
 
 export default function Home() {
   const { data: session } = useSession();
+
   return (
     <>
       <Head>

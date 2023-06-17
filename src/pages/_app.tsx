@@ -8,6 +8,7 @@ import { CacheProvider, EmotionCache } from "@emotion/react";
 import { SessionProvider } from "next-auth/react";
 import { Session } from "next-auth";
 import createEmotionCache from "styles/createEmotionCache";
+import { appWithTranslation } from "next-i18next";
 
 type ExtendedAppProps = AppProps & {
   emotionCache?: EmotionCache;
@@ -15,7 +16,7 @@ type ExtendedAppProps = AppProps & {
 };
 const clientSideEmotionCache = createEmotionCache();
 
-export default function App({
+function App({
   Component,
   pageProps,
   emotionCache = clientSideEmotionCache,
@@ -39,3 +40,5 @@ export default function App({
     </CacheProvider>
   );
 }
+
+export default appWithTranslation(App);

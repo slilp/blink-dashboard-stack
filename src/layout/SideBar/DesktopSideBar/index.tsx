@@ -4,8 +4,12 @@ import Menus from "../Menus";
 import MiniMenus from "../MiniMenus";
 import ArrowCircleLeftIcon from "@mui/icons-material/ArrowCircleLeft";
 import ArrowCircleRightIcon from "@mui/icons-material/ArrowCircleRight";
+import { useTranslation } from "next-i18next";
 
 function DesktopSidebar({ expandMenu, setExpandMenu }: any) {
+  const { t } = useTranslation("common");
+  const { t: t2 } = useTranslation("home");
+
   return (
     <Drawer
       variant="permanent"
@@ -29,7 +33,7 @@ function DesktopSidebar({ expandMenu, setExpandMenu }: any) {
     >
       <Box display="flex" justifyContent="center">
         <Typography variant="h6" sx={{ my: 2 }}>
-          LOGO
+          {t("Logo")} {t2("Welcome")}
         </Typography>
       </Box>
 
