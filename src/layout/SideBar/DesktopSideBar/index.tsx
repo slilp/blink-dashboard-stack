@@ -8,7 +8,6 @@ import { useTranslation } from "next-i18next";
 
 function DesktopSidebar({ expandMenu, setExpandMenu }: any) {
   const { t } = useTranslation("common");
-  const { t: t2 } = useTranslation("home");
 
   return (
     <Drawer
@@ -33,7 +32,7 @@ function DesktopSidebar({ expandMenu, setExpandMenu }: any) {
     >
       <Box display="flex" justifyContent="center">
         <Typography variant="h6" sx={{ my: 2 }}>
-          {t("Logo")} {t2("Welcome")}
+          {t("Logo")}
         </Typography>
       </Box>
 

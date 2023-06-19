@@ -15,13 +15,15 @@ import {
   ListItemIcon,
 } from "@mui/material";
 import MenuOpenIcon from "@mui/icons-material/MenuOpen";
-import MailIcon from "@mui/icons-material/Mail";
-import NotificationsIcon from "@mui/icons-material/Notifications";
 import AccountCircle from "@mui/icons-material/AccountCircle";
 import MenuPopover from "components/MenuPopover";
-import { InboxOutlined, LogoutOutlined } from "@mui/icons-material";
+import { LogoutOutlined } from "@mui/icons-material";
 import { signOut, useSession } from "next-auth/react";
 import { grey } from "@mui/material/colors";
+import Brightness4Icon from "@mui/icons-material/Brightness4";
+import Brightness7Icon from "@mui/icons-material/Brightness7";
+import { changeTheme, themeModeSelector } from "redux/darkMode";
+import { useAppDispatch, useAppSelector } from "redux/hook";
 
 const MenuButtonStyled = styled(ListItemButton)(({ theme }) => ({
   color: grey[700],
@@ -34,6 +36,8 @@ function NavBar({ drawerWidth, setExpandMobileMenu }: any) {
   const onOpenPopover = (event: any) => {
     setAnchorEl(event.currentTarget);
   };
+  const dispatch = useAppDispatch();
+  const darkMode = useAppSelector((state) => state.darkMode);
 
   return (
     <AppBar
@@ -67,6 +71,7 @@ function NavBar({ drawerWidth, setExpandMobileMenu }: any) {
         >
           <MenuOpenIcon />
         </IconButton>
+
         <Container maxWidth="xl">
           <Box display="flex" justifyContent="flex-end" width="100%">
             <IconButton
@@ -78,6 +83,15 @@ function NavBar({ drawerWidth, setExpandMobileMenu }: any) {
             >
               <AccountCircle />
             </IconButton>
+            {darkMode.theme === "light" ? (
+              <IconButton onClick={() => dispatch(changeTheme(true))}>
+                <Brightness7Icon />
+              </IconButton>
+            ) : (
+              <IconButton onClick={() => dispatch(changeTheme(false))}>
+                <Brightness4Icon />
+              </IconButton>
+            )}
           </Box>
         </Container>
       </Toolbar>

@@ -1,4 +1,5 @@
 import type { GetServerSideProps } from "next";
+import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import CreateProductPage from "views/product/pages/CreateProductPage";
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
@@ -6,6 +7,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 
   return {
     props: {
+      ...(await serverSideTranslations(context.locale as string, ["common"])),
       productInfo: {
         name: "Macbook pro",
         desc: "Amazing new macbook",

@@ -9,6 +9,8 @@ import { SessionProvider } from "next-auth/react";
 import { Session } from "next-auth";
 import createEmotionCache from "styles/createEmotionCache";
 import { appWithTranslation } from "next-i18next";
+import { Provider } from "react-redux";
+import { store } from "../redux/store";
 
 type ExtendedAppProps = AppProps & {
   emotionCache?: EmotionCache;
@@ -26,16 +28,18 @@ function App({
   return (
     <CacheProvider value={emotionCache}>
       <ThemeProvider theme={theme}>
-        <SessionProvider session={session}>
-          <CssBaseline />
-          {["/login", "/register"].includes(appProps.router.pathname) ? (
-            <Component {...pageProps} />
-          ) : (
-            <Layout>
+        <Provider store={store}>
+          <SessionProvider session={session}>
+            <CssBaseline />
+            {["/login", "/register"].includes(appProps.router.pathname) ? (
               <Component {...pageProps} />
-            </Layout>
-          )}
-        </SessionProvider>
+            ) : (
+              <Layout>
+                <Component {...pageProps} />
+              </Layout>
+            )}
+          </SessionProvider>
+        </Provider>
       </ThemeProvider>
     </CacheProvider>
   );

@@ -35,8 +35,8 @@ function ViewShopPage() {
         {[
           "https://www.mcmillandoolittle.com/wp-content/uploads/2021/09/Target-Ulta-1.jpg",
           "https://www.kare-design.com/wp-content/uploads/2015/08/2.jpg",
-        ].map((pic) => (
-          <Grid item xs={12} sm={6}>
+        ].map((pic, index) => (
+          <Grid key={`shop-card-${index}`} item xs={12} sm={6}>
             <ShopCard pic={pic} />
           </Grid>
         ))}
