@@ -1,0 +1,16 @@
+{
+  "Sign In": "ลงชื่อเข้าใช้",
+  "Login with social network": "ลงชื่อเข้าใช้ด้วย social network",
+  "Username": "ชื่อบัญชี",
+  "Password": "รหัส",
+  "Confirm password": "ยืนยันรหัส",
+  "Forget password": "ลืมรหัส",
+  "No Account": "ยังไม่มีบัญชี",
+  "Create one": "สร้างใหม่",
+  "OR": "หรือ",
+  "Required field": "โปรดใส่ข้อมูลนี้",
+  "Passwords must match": "รหัสผ่านไม่ตรงกัน",
+  "Create new account": "สร้างบัญชีใหม่",
+  "Create new account with social network": "สร้างบัญชีใหม่ด้วย social network",
+  "Already have an account": "มีบัญชีอยู่แล้ว"
+}

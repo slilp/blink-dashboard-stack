@@ -5,8 +5,8 @@ export type LoginFormType = {
   password: string;
 };
 
-export const loginFormValidationSchema = () =>
+export const loginFormValidationSchema = (t: any) =>
   yup.object({
-    username: yup.string().required("Required field"),
-    password: yup.string().required("Required field"),
+    username: yup.string().required(t("Required field")),
+    password: yup.string().required(t("Required field")),
   });

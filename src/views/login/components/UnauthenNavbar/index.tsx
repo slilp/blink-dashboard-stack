@@ -1,8 +1,17 @@
 import React from "react";
-import { AppBar, Box, Container, Toolbar } from "@mui/material";
-import Image from "next/image";
+import {
+  AppBar,
+  Box,
+  Button,
+  Container,
+  IconButton,
+  Toolbar,
+  Typography,
+} from "@mui/material";
+import { useRouter } from "next/router";
 
 function UnauthenNavbar() {
+  const { locale, push, asPath } = useRouter();
   return (
     <AppBar
       sx={{
@@ -13,15 +22,31 @@ function UnauthenNavbar() {
         left: "auto",
         right: "0",
         zIndex: "1000",
-        backdropFilter: "blur(6px)",
-        backgroundColor: "rgba(255, 255, 255, 0.8)",
-        transition: "height 200ms cubic-bezier(0.4, 0, 0.2, 1) 0ms",
+        background: "transparent",
+        color: "black",
       }}
     >
       <Toolbar>
         <Container maxWidth="xl">
-          <Box display="flex" width="100%">
-            <Image alt="logo" src="/vercel.svg" height={60} width={100} />
+          <Box display="flex" width="100%" justifyContent="space-between">
+            <Typography variant="h5" fontWeight="bold">
+              BLINK ME CODE
+            </Typography>
+            {locale === "th" ? (
+              <Button onClick={() => push(asPath, asPath, { locale: "en" })}>
+                TH
+                <Typography component="span" variant="h5" ml="0.5rem">
+                  🇹🇭
+                </Typography>
+              </Button>
+            ) : (
+              <Button onClick={() => push(asPath, asPath, { locale: "th" })}>
+                EN
+                <Typography component="span" variant="h5" ml="0.5rem">
+                  🇬🇧
+                </Typography>
+              </Button>
+            )}
           </Box>
         </Container>
       </Toolbar>

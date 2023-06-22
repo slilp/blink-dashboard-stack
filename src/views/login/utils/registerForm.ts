@@ -6,12 +6,12 @@ export type RegisterFormType = {
   confirmPassword: string;
 };
 
-export const registerFormValidationSchema = () =>
+export const registerFormValidationSchema = (t: any) =>
   yup.object({
-    username: yup.string().required("Required field"),
-    password: yup.string().required("Required field"),
+    username: yup.string().required(t("Required field")),
+    password: yup.string().required(t("Required field")),
     confirmPassword: yup
       .string()
-      .required("Required field")
-      .oneOf([yup.ref("password"), ""], "Passwords must match"),
+      .required(t("Required field"))
+      .oneOf([yup.ref("password"), ""], t("Passwords must match")),
   });
