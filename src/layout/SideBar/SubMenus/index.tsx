@@ -21,7 +21,7 @@ import CircleIcon from "@mui/icons-material/Circle";
 import { useSession } from "next-auth/react";
 
 type MenuButtonType = ListItemButtonBaseProps & {
-  active?: boolean;
+  active?: string;
 };
 
 const MenuButtonStyled = styled(ListItemButton)<MenuButtonType>(
@@ -30,7 +30,7 @@ const MenuButtonStyled = styled(ListItemButton)<MenuButtonType>(
     marginBottom: theme.spacing(0.65),
     color: grey[700],
     borderRadius: "8px",
-    ...(active && {
+    ...(active === "true" && {
       color: "white",
       backgroundColor: theme.palette.primary.light,
       "&:hover": {
@@ -58,8 +58,8 @@ function SubMenus({ menu, index }: any) {
       <MenuButtonStyled
         key={`mainmenu-${index}`}
         active={
-          router.pathname === menu.path ||
-          menu?.subMenus?.some((m: any) => router.pathname === m.path)
+          (router.pathname === menu.path ||
+            menu?.subMenus?.some((m: any) => router.pathname === m.path)) + ""
         }
         onClick={() =>
           menu?.subMenus ? setOpen(!open) : router.push(menu.path)

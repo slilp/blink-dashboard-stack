@@ -1,15 +1,25 @@
 import React from "react";
-import { Typography, Stack, List } from "@mui/material";
+import {
+  Typography,
+  Stack,
+  List,
+  Box,
+  Divider,
+  IconButton,
+  Button,
+  Tooltip,
+} from "@mui/material";
 import { navMenus } from "../navMenus";
 import SubMenus from "../SubMenus";
 import { useSession } from "next-auth/react";
+import Image from "next/image";
 
 function Menus({ setExpandMobileMenu }: { setExpandMobileMenu?: any }) {
   const { data: session } = useSession();
   const role: string = (session?.user as any)?.role;
 
   return (
-    <Stack px="1rem">
+    <Stack px="1rem" sx={{ height: "100%" }}>
       {navMenus.map((navMenu, index) =>
         navMenu.roles.length === 0 || navMenu.roles.includes(role) ? (
           <List key={`navMenu-${index}`} sx={{ padding: "0" }}>
@@ -29,6 +39,40 @@ function Menus({ setExpandMobileMenu }: { setExpandMobileMenu?: any }) {
           </List>
         ) : null
       )}
+
+      <Stack
+        height="100%"
+        display="flex"
+        flexDirection="column"
+        justifyContent="flex-end"
+      >
+        <Box
+          display="flex"
+          alignItems="center"
+          justifyContent="center"
+          flexDirection="column"
+          sx={{ gap: "8px" }}
+          bgcolor="grey.100"
+          borderRadius="12px"
+          minHeight="150px"
+          p={1}
+          mt={5}
+          mb={2}
+        >
+          <Image
+            style={{ marginTop: "-45px" }}
+            alt="more information"
+            height={80}
+            width={80}
+            src="/home/info.png"
+          />
+          <Typography variant="body2" textAlign="center">
+            If you want more information
+          </Typography>
+          <Button variant="contained">Support</Button>
+        </Box>
+        <Divider />
+      </Stack>
     </Stack>
   );
 }

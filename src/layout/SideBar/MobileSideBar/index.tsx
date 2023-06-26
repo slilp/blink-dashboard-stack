@@ -1,5 +1,5 @@
 import React from "react";
-import { Drawer, Typography } from "@mui/material";
+import { Drawer, Typography, Box } from "@mui/material";
 import { useRouter } from "next/router";
 import Menus from "../Menus";
 
@@ -20,9 +20,12 @@ function MobileSideBar({ expandMobileMenu, setExpandMobileMenu }: any) {
         "& .MuiDrawer-paper": { boxSizing: "border-box", width: 240 },
       }}
     >
-      <Typography textAlign="center" variant="h6" sx={{ my: 2 }}>
-        LOGO
-      </Typography>
+      <Box textAlign="center" my={2}>
+        <Typography variant="h5" fontWeight="bold">
+          Blink
+        </Typography>
+      </Box>
+
       <Menus />
     </Drawer>
   );

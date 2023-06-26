@@ -13,9 +13,12 @@ import {
   styled,
   Typography,
   ListItemIcon,
+  Button,
+  Tooltip,
 } from "@mui/material";
 import MenuOpenIcon from "@mui/icons-material/MenuOpen";
 import AccountCircle from "@mui/icons-material/AccountCircle";
+import SettingsIcon from "@mui/icons-material/Settings";
 import MenuPopover from "components/MenuPopover";
 import { LogoutOutlined } from "@mui/icons-material";
 import { signOut, useSession } from "next-auth/react";
@@ -24,6 +27,10 @@ import Brightness4Icon from "@mui/icons-material/Brightness4";
 import Brightness7Icon from "@mui/icons-material/Brightness7";
 import { changeTheme, themeModeSelector } from "redux/darkMode";
 import { useAppDispatch, useAppSelector } from "redux/hook";
+import { useRouter } from "next/router";
+import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+import ChevronRightIcon from "@mui/icons-material/ChevronRight";
+import TranslateIcon from "@mui/icons-material/Translate";
 
 const MenuButtonStyled = styled(ListItemButton)(({ theme }) => ({
   color: grey[700],
@@ -32,13 +39,19 @@ const MenuButtonStyled = styled(ListItemButton)(({ theme }) => ({
 
 function NavBar({ drawerWidth, setExpandMobileMenu }: any) {
   const [anchorEl, setAnchorEl] = useState<HTMLButtonElement | null>(null);
+  const [anchorElLang, setAnchorElLang] = useState<HTMLButtonElement | null>(
+    null
+  );
   const { data: session } = useSession();
   const onOpenPopover = (event: any) => {
     setAnchorEl(event.currentTarget);
   };
+  const onOpenPopoverLang = (event: any) => {
+    setAnchorElLang(event.currentTarget);
+  };
   const dispatch = useAppDispatch();
   const darkMode = useAppSelector((state) => state.darkMode);
-
+  const { locale, push, asPath } = useRouter();
   return (
     <AppBar
       sx={{
@@ -73,28 +86,92 @@ function NavBar({ drawerWidth, setExpandMobileMenu }: any) {
         </IconButton>
 
         <Container maxWidth="xl">
-          <Box display="flex" justifyContent="flex-end" width="100%">
-            <IconButton
-              size="large"
-              edge="end"
-              aria-label="account of current user"
-              aria-haspopup="true"
-              onClick={onOpenPopover}
-            >
-              <AccountCircle />
-            </IconButton>
-            {darkMode.theme === "light" ? (
-              <IconButton onClick={() => dispatch(changeTheme(true))}>
-                <Brightness7Icon />
-              </IconButton>
-            ) : (
-              <IconButton onClick={() => dispatch(changeTheme(false))}>
-                <Brightness4Icon />
-              </IconButton>
-            )}
+          <Box
+            display="flex"
+            justifyContent="flex-end"
+            width="100%"
+            sx={{ gap: "8px" }}
+          >
+            <Box display="flex" justifyContent="space-between" my={1}>
+              {darkMode.theme === "light" ? (
+                <Tooltip title="dark theme" arrow>
+                  <IconButton onClick={() => dispatch(changeTheme(true))}>
+                    <Brightness7Icon />
+                  </IconButton>
+                </Tooltip>
+              ) : (
+                <Tooltip title="light theme" arrow>
+                  <IconButton onClick={() => dispatch(changeTheme(false))}>
+                    <Brightness4Icon />
+                  </IconButton>
+                </Tooltip>
+              )}
+
+              <Tooltip title="language" arrow>
+                <IconButton onClick={onOpenPopoverLang}>
+                  <TranslateIcon />
+                </IconButton>
+              </Tooltip>
+
+              <Button
+                onClick={onOpenPopover}
+                sx={{ color: "grey.600", width: "150px" }}
+                startIcon={<AccountCircle />}
+                endIcon={
+                  anchorEl === null ? <ChevronRightIcon /> : <ExpandMoreIcon />
+                }
+              >
+                <Typography variant="body2" noWrap>
+                  {session?.user?.name}
+                </Typography>{" "}
+              </Button>
+            </Box>
           </Box>
         </Container>
       </Toolbar>
+
+      <MenuPopover
+        sx={{ width: "250px" }}
+        open={Boolean(anchorElLang)}
+        anchorEl={anchorElLang}
+        onClose={() => setAnchorElLang(null)}
+        anchorOrigin={{
+          vertical: "bottom",
+          horizontal: "center",
+        }}
+        transformOrigin={{
+          vertical: "top",
+          horizontal: "center",
+        }}
+      >
+        <List>
+          <ListItem disablePadding>
+            <MenuButtonStyled
+              sx={{
+                backgroundColor: locale === "en" ? "action.hover" : "default",
+              }}
+              onClick={() => push(asPath, asPath, { locale: "en" })}
+            >
+              <ListItemText>
+                <Typography variant="h5">🇹🇭</Typography>
+                EN
+              </ListItemText>
+            </MenuButtonStyled>
+            <MenuButtonStyled
+              sx={{
+                backgroundColor: locale === "th" ? "action.hover" : "default",
+              }}
+              onClick={() => push(asPath, asPath, { locale: "th" })}
+            >
+              <ListItemText>
+                <Typography variant="h5">🇬🇧</Typography>
+                TH
+              </ListItemText>
+            </MenuButtonStyled>
+          </ListItem>
+        </List>
+      </MenuPopover>
+
       <MenuPopover
         sx={{ width: "250px" }}
         open={Boolean(anchorEl)}
@@ -109,7 +186,7 @@ function NavBar({ drawerWidth, setExpandMobileMenu }: any) {
           horizontal: "center",
         }}
       >
-        <Box sx={{ width: "100%", maxWidth: 360, bgcolor: "background.paper" }}>
+        <Box sx={{ width: "100%", maxWidth: 360 }}>
           <nav aria-label="main mailbox folders">
             <List>
               <ListItem>
@@ -122,10 +199,20 @@ function NavBar({ drawerWidth, setExpandMobileMenu }: any) {
                   {session?.user?.email}
                 </Typography>
               </ListItem>
+              <ListItem disablePadding>
+                <MenuButtonStyled>
+                  <ListItemIcon sx={{ fontSize: "1.5rem" }}>
+                    <SettingsIcon />
+                  </ListItemIcon>
+                  <ListItemText>
+                    <Typography variant="body2">Settings</Typography>
+                  </ListItemText>
+                </MenuButtonStyled>
+              </ListItem>
             </List>
           </nav>
           <Divider sx={{ borderStyle: "dashed" }} />
-          <nav aria-label="secondary mailbox folders">
+          <nav>
             <List>
               <ListItem disablePadding>
                 <MenuButtonStyled

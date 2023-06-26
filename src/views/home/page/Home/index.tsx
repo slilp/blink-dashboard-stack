@@ -19,7 +19,7 @@ export default function Home() {
       </Head>
 
       <Grid container spacing={2}>
-        <Grid item xs={12} md={5}>
+        <Grid item xs={12} sm={8} md={5}>
           <HomeWelcome name={session?.user?.name || "-"} />
         </Grid>
         <Grid item xs={12} md={7}>

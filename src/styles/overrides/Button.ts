@@ -7,6 +7,7 @@ function Button(theme: Theme) {
         root: ({ state }: { state: ButtonProps }) => ({
           borderRadius: "12px",
           padding: "0.5rem 1rem ",
+          boxShadow: "none",
         }),
       },
     },

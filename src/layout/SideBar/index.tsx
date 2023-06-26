@@ -1,16 +1,6 @@
-import {
-  Box,
-  Drawer,
-  Typography,
-  Divider,
-  List,
-  ListItem,
-  ListItemButton,
-  ListItemText,
-  Button,
-} from "@mui/material";
+import { Box } from "@mui/material";
 import { useRouter } from "next/router";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import DesktopSidebar from "./DesktopSideBar";
 import MobileSideBar from "./MobileSideBar";
 
@@ -20,6 +10,12 @@ function SideBar({
   expandMobileMenu,
   setExpandMobileMenu,
 }: any) {
+  const { pathname } = useRouter();
+
+  useEffect(() => {
+    setExpandMobileMenu(false);
+  }, [pathname]);
+
   return (
     <Box component="nav">
       <MobileSideBar

@@ -72,7 +72,7 @@ const Table = <T extends object>({
                     {onSort && orderBy === column.key ? (
                       <TableSortLabel
                         hideSortIcon
-                        active={orderBy === column.key}
+                        active={Boolean(orderBy === column.key)}
                         direction={
                           orderBy === column.key ? order || "desc" : "asc"
                         }

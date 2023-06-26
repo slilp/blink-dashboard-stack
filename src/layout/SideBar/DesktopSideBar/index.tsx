@@ -4,11 +4,8 @@ import Menus from "../Menus";
 import MiniMenus from "../MiniMenus";
 import ArrowCircleLeftIcon from "@mui/icons-material/ArrowCircleLeft";
 import ArrowCircleRightIcon from "@mui/icons-material/ArrowCircleRight";
-import { useTranslation } from "next-i18next";
 
 function DesktopSidebar({ expandMenu, setExpandMenu }: any) {
-  const { t } = useTranslation("common");
-
   return (
     <Drawer
       variant="permanent"
@@ -28,23 +25,23 @@ function DesktopSidebar({ expandMenu, setExpandMenu }: any) {
           borderStyle: "dashed",
         },
       }}
-      open
+      open={true}
     >
-      <Box display="flex" justifyContent="center">
-        <Typography variant="h6" sx={{ my: 2 }}>
-          {t("Logo")}
+      <Box textAlign="center" my={2}>
+        <Typography variant="h5" fontWeight="bold">
+          Blink
         </Typography>
       </Box>
 
-      <Box textAlign="center">
+      <Box textAlign="right">
         {!expandMenu && (
           <IconButton onClick={() => setExpandMenu(true)}>
-            <ArrowCircleRightIcon />
+            <ArrowCircleRightIcon sx={{ opacity: 0.8 }} />
           </IconButton>
         )}
         {expandMenu && (
           <IconButton onClick={() => setExpandMenu(false)}>
-            <ArrowCircleLeftIcon />
+            <ArrowCircleLeftIcon sx={{ opacity: 0.8 }} />
           </IconButton>
         )}
       </Box>
