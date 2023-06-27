@@ -1,43 +1,100 @@
-import { Box, Card, Typography } from "@mui/material";
+import React from "react";
+import {
+  Box,
+  Card,
+  IconButton,
+  Typography,
+  Divider,
+  Grid,
+} from "@mui/material";
 import Image from "next/image";
 import MovingIcon from "@mui/icons-material/Moving";
+import MoreVertIcon from "@mui/icons-material/MoreVert";
+import { useTranslation } from "next-i18next";
+
+const topSell = [
+  {
+    id: "iphone",
+    name: "Iphone 14 Pro",
+    img: "/products/iphone-14-pro.jpeg",
+    amount: 70.5,
+    value: "12",
+  },
+  {
+    id: "macbook-midnight",
+    name: "Macbook Air Midnight",
+    img: "/products/macbook-air-midnight.jpeg",
+    amount: 42,
+    value: "9",
+  },
+  {
+    id: "macbook-space",
+    name: "Macbook Air Space grey",
+    img: "/products/macbook-air-space-grey.jpeg",
+    amount: 35,
+    value: "5",
+  },
+];
 
 function HomeTopSelling() {
+  const { t } = useTranslation("home");
+
   return (
     <Card>
-      <Typography variant="h6" mb="1rem">
-        Best Selling Products 🏆
-      </Typography>
-      <Box display="flex" flexDirection="column">
-        {[1, 2, 3, 4, 5].map((index) => (
-          <Box
-            key={`top-sell-${index}`}
-            display="flex"
-            justifyContent="space-between"
-            alignItems="center"
-            sx={{ gap: "12px" }}
-          >
-            <Image
-              style={{
-                borderRadius: "12px",
-                objectFit: "cover",
-              }}
-              alt="im"
-              src="/products/macbook-air-midnight.jpeg"
-              height="70"
-              width="70"
-            />
-            <Box flex="1" textAlign="center">
-              <Typography variant="body1">Iphone 14 Pro</Typography>
-              <Typography variant="body1">12,345 B</Typography>
-            </Box>
-            <Box flex="1" color="success.main" textAlign="center">
-              <MovingIcon />
-              <Typography variant="body1">12%</Typography>
-            </Box>
-          </Box>
-        ))}
+      <Box display="flex" justifyContent="space-between" alignItems="center">
+        <Typography variant="h6" mb="1rem">
+          {t("Best Selling Products")} 🏆
+        </Typography>
+        <IconButton>
+          <MoreVertIcon />
+        </IconButton>
       </Box>
+      <Divider sx={{ mt: 1, mb: 2, borderStyle: "dashed" }} />
+      <Grid container spacing={1}>
+        {topSell.map((item) => (
+          <React.Fragment key={`top-selling-card-${item.id}`}>
+            <Grid item xs={4}>
+              <Image
+                style={{
+                  borderRadius: "12px",
+                  objectFit: "contain",
+                  flex: "1",
+                }}
+                alt={item.name}
+                src={item.img}
+                height="70"
+                width="70"
+              />
+            </Grid>
+            <Grid item xs={4}>
+              <Box
+                display="flex"
+                flexDirection="column"
+                justifyContent="center"
+                height="100%"
+              >
+                <Typography variant="body2">{item.name}</Typography>
+                <Typography variant="body1" sx={{ color: "text.secondary" }}>
+                  {item.amount} {t("MB")}
+                </Typography>
+              </Box>
+            </Grid>
+            <Grid item xs={4}>
+              <Box
+                display="flex"
+                flexDirection="column"
+                justifyContent="center"
+                alignItems="center"
+                height="100%"
+                color="success.main"
+              >
+                <MovingIcon />
+                <Typography variant="body2">{item.value}%</Typography>
+              </Box>
+            </Grid>
+          </React.Fragment>
+        ))}
+      </Grid>
     </Card>
   );
 }

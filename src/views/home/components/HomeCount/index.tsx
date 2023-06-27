@@ -3,26 +3,29 @@ import CategoryIcon from "@mui/icons-material/Category";
 import ShoppingBasketIcon from "@mui/icons-material/ShoppingBasket";
 import PersonIcon from "@mui/icons-material/Person";
 import { blue, green, orange } from "@mui/material/colors";
+import { useTranslation } from "next-i18next";
 
 function HomeCount() {
+  const { t } = useTranslation("home");
+
   const stats = [
     {
       id: "totalProduct",
-      label: "Product",
+      label: t("Product"),
       value: 56,
       icon: <CategoryIcon fontSize="large" />,
       color: orange[200],
     },
     {
       id: "totalShop",
-      label: "Shop",
+      label: t("Shop"),
       value: 5,
       icon: <ShoppingBasketIcon fontSize="large" />,
       color: blue[200],
     },
     {
       id: "totalUSer",
-      label: "User",
+      label: t("Customer"),
       value: 12,
       icon: <PersonIcon fontSize="large" />,
       color: green[200],
@@ -30,9 +33,9 @@ function HomeCount() {
   ];
 
   return (
-    <Grid container spacing={1} sx={{ height: "100%" }}>
+    <Grid container sx={{ height: "100%" }} spacing={1}>
       {stats.map((stat) => (
-        <Grid key={`stat-card-${stat}`} item xs={6} md={4}>
+        <Grid key={`stat-card-${stat}`} item xs={12} sm={4} md={4}>
           <Card
             sx={{
               height: "100%",
@@ -61,6 +64,7 @@ function HomeCount() {
               display="flex"
               justifyContent="center"
               alignItems="center"
+              minHeight={{ xs: "74px", sm: "60px" }}
             >
               {stat.icon}
             </Box>

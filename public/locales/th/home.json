@@ -1,3 +1,15 @@
 {
-  "Welcome": "สวัสดีครับ"
+  "Home": "หน้าหลัก",
+  "Welcome back": "ยินดีต้อนรับ",
+  "Ready to Go dashboard !": "Dashboard ที่พร้อมใช้งาน !",
+  "Product": "สินค้า",
+  "Shop": "ร้านค้า",
+  "Customer": "ลูกค้า",
+  "Get Started": "เริ่มต้น",
+  "Statistics": "ข้อมูลสถิติ",
+  "Weekly Sale Target": "เป้ายอดขายประจำสัปดาห์",
+  "Monthly Sale Target": "เป้ายอดขายประจำเดือน",
+  "Yearly Sale Target": "เป้ายอดขายประจำปี",
+  "Best Selling Products": "สินค้าขายดี",
+  "MB": "ล้านบาท"
 }

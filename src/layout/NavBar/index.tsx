@@ -94,20 +94,20 @@ function NavBar({ drawerWidth, setExpandMobileMenu }: any) {
           >
             <Box display="flex" justifyContent="space-between" my={1}>
               {darkMode.theme === "light" ? (
-                <Tooltip title="dark theme" arrow>
+                <Tooltip title="Dark theme" arrow>
                   <IconButton onClick={() => dispatch(changeTheme(true))}>
                     <Brightness7Icon />
                   </IconButton>
                 </Tooltip>
               ) : (
-                <Tooltip title="light theme" arrow>
+                <Tooltip title="Light theme" arrow>
                   <IconButton onClick={() => dispatch(changeTheme(false))}>
                     <Brightness4Icon />
                   </IconButton>
                 </Tooltip>
               )}
 
-              <Tooltip title="language" arrow>
+              <Tooltip title="Language" arrow>
                 <IconButton onClick={onOpenPopoverLang}>
                   <TranslateIcon />
                 </IconButton>
@@ -216,7 +216,7 @@ function NavBar({ drawerWidth, setExpandMobileMenu }: any) {
             <List>
               <ListItem disablePadding>
                 <MenuButtonStyled
-                  onClick={() => signOut({ callbackUrl: "/login" })}
+                  onClick={() => signOut({ callbackUrl: `/${locale}/login` })}
                 >
                   <ListItemIcon sx={{ fontSize: "1.5rem" }}>
                     <LogoutOutlined />

@@ -25,12 +25,14 @@ import { Visibility, VisibilityOff } from "@mui/icons-material";
 import { signIn } from "next-auth/react";
 import Image from "next/image";
 import { useTranslation } from "next-i18next";
+import { useRouter } from "next/router";
 
 function LoginPage() {
   const { t } = useTranslation("login");
   const resolver: Resolver<LoginFormType> = yupResolver(
     loginFormValidationSchema(t)
   );
+  const { locale } = useRouter();
   const {
     handleSubmit,
     register,
@@ -46,7 +48,7 @@ function LoginPage() {
     signIn("credentials", {
       username: data.username,
       password: data.password,
-      callbackUrl: "/",
+      callbackUrl: `/${locale}`,
     });
   };
 
