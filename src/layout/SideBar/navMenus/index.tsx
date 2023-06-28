@@ -21,13 +21,13 @@ type NavMenuType = {
   }[];
 };
 
-export const navMenus: NavMenuType[] = [
+export const navMenus = (t: any): NavMenuType[] => [
   {
-    titleSection: "Dashboard",
+    titleSection: t("Dashboard"),
     roles: [],
     mainMenus: [
       {
-        title: "Home",
+        title: t("Home"),
         path: "/",
         icon: <HomeIcon fontSize="small" />,
         roles: [],
@@ -35,23 +35,23 @@ export const navMenus: NavMenuType[] = [
     ],
   },
   {
-    titleSection: "Product",
+    titleSection: t("Product"),
     roles: [],
     mainMenus: [
       {
-        title: "Product",
+        title: t("Product"),
         path: "/product",
         icon: <CategoryIcon fontSize="small" />,
         roles: [],
         subMenus: [
           {
-            title: "View Products",
+            title: t("View Products"),
             path: "/product/view",
             icon: <InventoryIcon fontSize="small" />,
             roles: [],
           },
           {
-            title: "Create Product",
+            title: t("Create Product"),
             path: "/product/create",
             icon: <AddCircleIcon fontSize="small" />,
             roles: ["admin"],
@@ -61,11 +61,11 @@ export const navMenus: NavMenuType[] = [
     ],
   },
   {
-    titleSection: "Admin",
+    titleSection: t("Admin"),
     roles: ["admin"],
     mainMenus: [
       {
-        title: "Shop",
+        title: t("Shop"),
         path: "/admin/shop",
         icon: <StorefrontIcon fontSize="small" />,
         roles: ["admin"],

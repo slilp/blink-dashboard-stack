@@ -22,7 +22,7 @@ function HomeWelcome({ name }: { name: string }) {
         </Grid>
         <Grid item xs={12} md={6}>
           <Box textAlign="center">
-            <Typography variant="h5" fontWeight="bold">
+            <Typography variant="h5" fontWeight={500}>
               {t("Welcome back")}
             </Typography>
             <Typography variant="h6">{name}</Typography>

@@ -31,6 +31,7 @@ import { useRouter } from "next/router";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import TranslateIcon from "@mui/icons-material/Translate";
+import { useTranslation } from "next-i18next";
 
 const MenuButtonStyled = styled(ListItemButton)(({ theme }) => ({
   color: grey[700],
@@ -52,6 +53,8 @@ function NavBar({ drawerWidth, setExpandMobileMenu }: any) {
   const dispatch = useAppDispatch();
   const darkMode = useAppSelector((state) => state.darkMode);
   const { locale, push, asPath } = useRouter();
+  const { t } = useTranslation("common");
+
   return (
     <AppBar
       sx={{
@@ -94,20 +97,20 @@ function NavBar({ drawerWidth, setExpandMobileMenu }: any) {
           >
             <Box display="flex" justifyContent="space-between" my={1}>
               {darkMode.theme === "light" ? (
-                <Tooltip title="Dark theme" arrow>
+                <Tooltip title={t("Dark theme")} arrow>
                   <IconButton onClick={() => dispatch(changeTheme(true))}>
                     <Brightness7Icon />
                   </IconButton>
                 </Tooltip>
               ) : (
-                <Tooltip title="Light theme" arrow>
+                <Tooltip title={t("Light theme")} arrow>
                   <IconButton onClick={() => dispatch(changeTheme(false))}>
                     <Brightness4Icon />
                   </IconButton>
                 </Tooltip>
               )}
 
-              <Tooltip title="Language" arrow>
+              <Tooltip title={t("Language")} arrow>
                 <IconButton onClick={onOpenPopoverLang}>
                   <TranslateIcon />
                 </IconButton>
@@ -205,7 +208,7 @@ function NavBar({ drawerWidth, setExpandMobileMenu }: any) {
                     <SettingsIcon />
                   </ListItemIcon>
                   <ListItemText>
-                    <Typography variant="body2">Settings</Typography>
+                    <Typography variant="body2">{t("Settings")} </Typography>
                   </ListItemText>
                 </MenuButtonStyled>
               </ListItem>
@@ -222,7 +225,7 @@ function NavBar({ drawerWidth, setExpandMobileMenu }: any) {
                     <LogoutOutlined />
                   </ListItemIcon>
                   <ListItemText>
-                    <Typography variant="body2">Logout</Typography>
+                    <Typography variant="body2">{t("Logout")}</Typography>
                   </ListItemText>
                 </MenuButtonStyled>
               </ListItem>

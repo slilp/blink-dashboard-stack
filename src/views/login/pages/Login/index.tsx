@@ -84,7 +84,7 @@ function LoginPage() {
               p="1rem"
               sx={{ gap: "1rem", width: { xs: "100%", sm: "60%" } }}
             >
-              <Typography variant="h5" textAlign="center">
+              <Typography variant="h5" fontWeight={500} textAlign="center">
                 {t("Sign In")}
               </Typography>
               <Typography variant="body1" textAlign="center">

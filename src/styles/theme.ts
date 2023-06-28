@@ -4,6 +4,46 @@ import { Theme, createTheme } from "@mui/material/styles";
 import { red } from "@mui/material/colors";
 import OverridesComponents from "./overrides";
 
+export const rubikFont = localFont({
+  src: [
+    {
+      path: "../../public/fonts/Rubik/Rubik-Black.ttf",
+      weight: "900",
+      style: "normal",
+    },
+    {
+      path: "../../public/fonts/Rubik/Rubik-Bold.ttf",
+      weight: "700",
+      style: "normal",
+    },
+    {
+      path: "../../public/fonts/Rubik/Rubik-ExtraBold.ttf",
+      weight: "800",
+      style: "normal",
+    },
+    {
+      path: "../../public/fonts/Rubik/Rubik-Light.ttf",
+      weight: "300",
+      style: "normal",
+    },
+    {
+      path: "../../public/fonts/Rubik/Rubik-SemiBold.ttf",
+      weight: "600",
+      style: "normal",
+    },
+    {
+      path: "../../public/fonts/Rubik/Rubik-Medium.ttf",
+      weight: "500",
+      style: "normal",
+    },
+    {
+      path: "../../public/fonts/Rubik/Rubik-Regular.ttf",
+      weight: "400",
+      style: "normal",
+    },
+  ],
+});
+
 export const kanitFont = localFont({
   src: [
     {
@@ -66,7 +106,7 @@ const theme: any = createTheme({
     },
   },
   typography: {
-    fontFamily: roboto.style.fontFamily,
+    fontFamily: kanitFont.style.fontFamily,
   },
 });
 

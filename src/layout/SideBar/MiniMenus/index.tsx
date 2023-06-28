@@ -22,6 +22,7 @@ import { useRouter } from "next/router";
 import CircleIcon from "@mui/icons-material/Circle";
 import { useSession } from "next-auth/react";
 import Image from "next/image";
+import { useTranslation } from "next-i18next";
 
 type MenuButtonType = ListItemButtonBaseProps & {
   active?: string;
@@ -50,6 +51,7 @@ function MiniMenus() {
   const router = useRouter();
   const { data: session } = useSession();
   const role: string = (session?.user as any)?.role;
+  const { t } = useTranslation();
 
   const onOpenPopover = (event: any, menus: any[]) => {
     setAnchorEl(event.currentTarget);
@@ -57,7 +59,7 @@ function MiniMenus() {
   };
   return (
     <Stack px="0.5rem" sx={{ height: "100%" }}>
-      {navMenus.map((navMenu, index) =>
+      {navMenus(t).map((navMenu, index) =>
         navMenu.roles.length === 0 || navMenu.roles.includes(role) ? (
           <List key={`navMenu-${index}`} sx={{ padding: "0" }}>
             {navMenu.mainMenus.map((menu: any) => {
@@ -104,7 +106,7 @@ function MiniMenus() {
                 </MenuButtonStyled>
               );
             })}
-            {!(index + 1 === navMenus.length) && <Divider />}
+            {!(index + 1 === navMenus(t).length) && <Divider />}
           </List>
         ) : null
       )}
@@ -135,10 +137,10 @@ function MiniMenus() {
             src="/home/info.png"
           />
           <Typography variant="body2" textAlign="center">
-            If you want more information
+            {t("If you want more information")}
           </Typography>
           <Button sx={{ px: 1 }} variant="contained">
-            Support
+            {t("Support")}{" "}
           </Button>
         </Box>
         <Divider />
@@ -160,7 +162,7 @@ function MiniMenus() {
           subMenu.roles.length === 0 || subMenu.roles.includes(role) ? (
             <MenuButtonStyled
               key={`submenu-${index}`}
-              active={Boolean(router.pathname === subMenu.path)}
+              active={(router.pathname === subMenu.path) + ""}
               onClick={() => {
                 router.push(subMenu.path);
                 setAnchorEl(null);

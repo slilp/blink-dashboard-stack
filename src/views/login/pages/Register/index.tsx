@@ -77,7 +77,7 @@ function RegisterPage() {
               m="auto"
               sx={{ gap: "1rem", width: { xs: "100%", sm: "60%" } }}
             >
-              <Typography variant="h5" textAlign="center">
+              <Typography variant="h5" fontWeight={500} textAlign="center">
                 {t("Create new account")}
               </Typography>
               <Typography variant="body1" textAlign="center">

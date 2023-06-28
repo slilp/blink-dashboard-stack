@@ -1,3 +1,16 @@
 {
-  "Logo": "โลโก้"
+  "Dark theme": "ธีมมืด",
+  "Light theme": "ธีมสว่าง",
+  "Language": "เลือกภาษา",
+  "Settings": "การตั้งค่า",
+  "Logout": "ออกจากระบบ",
+  "If you want more information": "ข้อมูลเพิ่มเติม",
+  "Support": "การช่วยเหลือ",
+  "Dashboard": "แดชบอร์ด",
+  "Home": "หน้าหลัก",
+  "Product": "สินค้า",
+  "View Products": "รายการสินค้า",
+  "Create Product": "เพิ่มสินค้า",
+  "Admin": "แอดมิน",
+  "Shop": "ร้านค้า"
 }

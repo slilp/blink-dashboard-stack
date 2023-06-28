@@ -1,26 +1,19 @@
 import React from "react";
-import {
-  Typography,
-  Stack,
-  List,
-  Box,
-  Divider,
-  IconButton,
-  Button,
-  Tooltip,
-} from "@mui/material";
+import { Typography, Stack, List, Box, Divider, Button } from "@mui/material";
 import { navMenus } from "../navMenus";
 import SubMenus from "../SubMenus";
 import { useSession } from "next-auth/react";
 import Image from "next/image";
+import { useTranslation } from "next-i18next";
 
 function Menus({ setExpandMobileMenu }: { setExpandMobileMenu?: any }) {
   const { data: session } = useSession();
   const role: string = (session?.user as any)?.role;
+  const { t } = useTranslation();
 
   return (
     <Stack px="1rem" sx={{ height: "100%" }}>
-      {navMenus.map((navMenu, index) =>
+      {navMenus(t).map((navMenu, index) =>
         navMenu.roles.length === 0 || navMenu.roles.includes(role) ? (
           <List key={`navMenu-${index}`} sx={{ padding: "0" }}>
             {navMenu.titleSection && (
@@ -67,9 +60,9 @@ function Menus({ setExpandMobileMenu }: { setExpandMobileMenu?: any }) {
             src="/home/info.png"
           />
           <Typography variant="body2" textAlign="center">
-            If you want more information
+            {t("If you want more information")}
           </Typography>
-          <Button variant="contained">Support</Button>
+          <Button variant="contained">{t("Support")}</Button>
         </Box>
         <Divider />
       </Stack>

@@ -1,3 +1,16 @@
 {
-  "Logo": "Logo"
+  "Dark theme": "Dark theme",
+  "Light theme": "Light theme",
+  "Language": "Language",
+  "Settings": "Settings",
+  "Logout": "Logout",
+  "If you want more information": "If you want more information",
+  "Support": "Support",
+  "Dashboard": "Dashboard",
+  "Home": "Home",
+  "Product": "Product",
+  "View Products": "View Products",
+  "Create Product": "Create Product",
+  "Admin": "Admin",
+  "Shop": "Shop"
 }
