@@ -1,0 +1,15 @@
+{
+  "Create New Product": "สร้างสินค้าใหม่",
+  "Max image size 10 GB": "ขนาดรูปภาพไม่เกิน 10 GB",
+  "Upload product here": "อัพโหลดรูปสินค้าที่นี่",
+  "Name": "ชื่อสินค้า",
+  "Stock": "จำนวนคงคลัง",
+  "Brand": "ยี่ห้อ",
+  "Color": "สี",
+  "Status": "สถานะ",
+  "Description": "คำอธิบายเพิ่มเติม",
+  "Promotion": "โปรโมชัน",
+  "Warranty": "การรัับประกัน",
+  "Required field": "โปรดใส่ข้อมูลนี้",
+  "Minimum one": "เลือกอย่างน้อย 1 ตัว"
+}

@@ -219,7 +219,12 @@ function NavBar({ drawerWidth, setExpandMobileMenu }: any) {
             <List>
               <ListItem disablePadding>
                 <MenuButtonStyled
-                  onClick={() => signOut({ callbackUrl: `/${locale}/login` })}
+                  onClick={() =>
+                    signOut({
+                      callbackUrl:
+                        locale === "en" ? "/login" : `/${locale}/login`,
+                    })
+                  }
                 >
                   <ListItemIcon sx={{ fontSize: "1.5rem" }}>
                     <LogoutOutlined />

@@ -48,7 +48,7 @@ function LoginPage() {
     signIn("credentials", {
       username: data.username,
       password: data.password,
-      callbackUrl: `/${locale}`,
+      callbackUrl: locale === "en" ? "/" : `/${locale}`,
     });
   };
 

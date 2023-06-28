@@ -3,7 +3,7 @@ import * as yup from "yup";
 export type CreateProductFormType = {
   name: string;
   desc: string;
-  stock: number;
+  stock: string;
   color: string;
   warranty: boolean;
   brand: string;
@@ -15,24 +15,24 @@ export type CreateProductFormType = {
   img: File | null | string;
 };
 
-export const createProductFormValidationSchema = () =>
+export const createProductFormValidationSchema = (t: any) =>
   yup.object({
-    name: yup.string().required("Required field"),
-    desc: yup.string().required("Required field"),
-    stock: yup.string().required("Required field"),
-    color: yup.string().required("Required field"),
-    warranty: yup.boolean().required("Required field"),
-    brand: yup.string().required("Required field"),
-    status: yup.string().required("Required field"),
-    img: yup.mixed().required("Required field"),
+    name: yup.string().required(t("Required field")),
+    desc: yup.string().required(t("Required field")),
+    stock: yup.string().required(t("Required field")),
+    color: yup.string().required(t("Required field")),
+    warranty: yup.boolean().required(t("Required field")),
+    brand: yup.string().required(t("Required field")),
+    status: yup.string().required(t("Required field")),
+    img: yup.mixed().required(t("Required field")),
     promotions: yup
       .array()
       .of(
         yup.object().shape({
-          promotionId: yup.string().required("Required field"),
-          label: yup.string().required("Required field"),
+          promotionId: yup.string().required(t("Required field")),
+          label: yup.string().required(t("Required field")),
         })
       )
-      .required("Minimum one")
-      .min(1, "Minimum one"),
+      .required(t("Minimum one"))
+      .min(1, t("Minimum one")),
   });

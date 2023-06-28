@@ -24,9 +24,9 @@ import {
   CreateProductFormType,
 } from "../../utils/createProductForm";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { Visibility, VisibilityOff } from "@mui/icons-material";
 import { Controller, Resolver, useForm } from "react-hook-form";
 import UploadFile from "components/UploadFile";
+import { useTranslation } from "next-i18next";
 
 const promotionList = [
   { promotionId: "promo1", label: "10% discount" },
@@ -37,8 +37,9 @@ const promotionList = [
 ];
 
 function CreateProductPage({ productInfo }: any) {
+  const { t } = useTranslation("product");
   const resolver: Resolver<CreateProductFormType> = yupResolver(
-    createProductFormValidationSchema()
+    createProductFormValidationSchema(t)
   );
   const {
     handleSubmit,
@@ -49,8 +50,6 @@ function CreateProductPage({ productInfo }: any) {
     resetField,
     setValue,
   } = useForm<CreateProductFormType>({ resolver });
-  const [showPassword, setShowPassword] = useState(false);
-  const watchAllField = watch();
   const onSubmitLogin = (data: CreateProductFormType) => {
     console.log(data);
   };
@@ -66,34 +65,43 @@ function CreateProductPage({ productInfo }: any) {
         <meta name="description" content="Product" />
       </Head>
       <Box display="flex" justifyContent="space-between" mb="2rem">
-        <Typography variant="h6">Create New Product</Typography>
+        <Typography variant="h6">{t("Create New Product")}</Typography>
       </Box>
       <Box component="form">
         <Grid container spacing={1}>
           <Grid item xs={12} md={4}>
             <Card sx={{ height: "100%" }}>
-              <Grid container spacing={1}>
+              <Grid container spacing={1} sx={{ height: "100%" }}>
                 <Grid item xs={12}>
-                  <Controller
-                    defaultValue=""
-                    name="img"
-                    control={control}
-                    render={({
-                      field: { onChange, value },
-                      fieldState: { error },
-                    }) => (
-                      <UploadFile
-                        acceptType={{
-                          "image/*": [],
-                        }}
-                        maxSize={10485760}
-                        file={value}
-                        errorMesssage={error?.message}
-                        onChange={onChange}
-                        onRemove={() => onChange(null)}
-                      />
-                    )}
-                  />
+                  <Box
+                    display="flex"
+                    alignItems="center"
+                    justifyContent="center"
+                    height="100%"
+                  >
+                    <Controller
+                      defaultValue={null}
+                      name="img"
+                      control={control}
+                      render={({
+                        field: { onChange, value },
+                        fieldState: { error },
+                      }) => (
+                        <UploadFile
+                          acceptType={{
+                            "image/*": [],
+                          }}
+                          label={t("Max image size 10 GB")}
+                          uploadLabel={t("Upload product here")}
+                          maxSize={10485760}
+                          file={value}
+                          errorMesssage={error?.message}
+                          onChange={onChange}
+                          onRemove={() => onChange(null)}
+                        />
+                      )}
+                    />
+                  </Box>
                 </Grid>
               </Grid>
             </Card>
@@ -114,9 +122,8 @@ function CreateProductPage({ productInfo }: any) {
                         error={!!error?.message}
                         helperText={error?.message || ""}
                         onChange={onChange}
-                        defaultValue=""
                         value={value}
-                        label="Name"
+                        label={t("Name")}
                         fullWidth
                       />
                     )}
@@ -125,19 +132,21 @@ function CreateProductPage({ productInfo }: any) {
                 <Grid item xs={12} sm={6}>
                   <Controller
                     name="stock"
+                    defaultValue=""
                     control={control}
                     render={({
                       field: { onChange, value },
                       fieldState: { error },
                     }) => (
                       <TextField
-                        defaultValue=""
-                        inputProps={{ inputMode: "numeric", pattern: "[0-9]*" }}
                         error={!!error?.message}
                         helperText={error?.message || ""}
-                        onChange={onChange}
+                        onChange={(e) => {
+                          if (!isNaN(+e.target.value))
+                            onChange(+e.target.value);
+                        }}
                         value={value + ""}
-                        label="Stock"
+                        label={t("Stock")}
                         fullWidth
                       />
                     )}
@@ -153,12 +162,11 @@ function CreateProductPage({ productInfo }: any) {
                       fieldState: { error },
                     }) => (
                       <TextField
-                        defaultValue=""
                         error={!!error?.message}
                         helperText={error?.message || ""}
                         onChange={onChange}
                         value={value}
-                        label="Brand"
+                        label={t("Brand")}
                         fullWidth
                       />
                     )}
@@ -174,12 +182,11 @@ function CreateProductPage({ productInfo }: any) {
                       fieldState: { error },
                     }) => (
                       <TextField
-                        defaultValue=""
                         error={!!error?.message}
                         helperText={error?.message || ""}
                         onChange={onChange}
                         value={value}
-                        label="Color"
+                        label={t("Color")}
                         fullWidth
                       />
                     )}
@@ -195,7 +202,7 @@ function CreateProductPage({ productInfo }: any) {
                       fieldState: { error },
                     }) => (
                       <FormControl>
-                        <FormLabel>Gender</FormLabel>
+                        <FormLabel>{t("Warranty")}</FormLabel>
                         <RadioGroup
                           defaultValue={false}
                           value={value}
@@ -226,14 +233,13 @@ function CreateProductPage({ productInfo }: any) {
                       fieldState: { error },
                     }) => (
                       <TextField
-                        defaultValue=""
                         multiline
                         rows={3}
                         error={!!error?.message}
                         helperText={error?.message || ""}
                         onChange={onChange}
                         value={value}
-                        label="Description"
+                        label={t("Description")}
                         fullWidth
                       />
                     )}
@@ -250,7 +256,7 @@ function CreateProductPage({ productInfo }: any) {
                       fieldState: { error },
                     }) => (
                       <FormControl fullWidth error={!!error?.message}>
-                        <InputLabel>Status</InputLabel>
+                        <InputLabel> {t("Status")}</InputLabel>
 
                         <Select
                           value={value}
@@ -292,7 +298,7 @@ function CreateProductPage({ productInfo }: any) {
                         renderInput={(params) => (
                           <TextField
                             {...params}
-                            label="Promotion"
+                            label={t("Promotion")}
                             error={!!error?.message}
                             helperText={error?.message || ""}
                           />
@@ -309,7 +315,7 @@ function CreateProductPage({ productInfo }: any) {
                       type="submit"
                       variant="contained"
                     >
-                      Create new product
+                      {t("Create New Product")}{" "}
                     </Button>
                   </Box>
                 </Grid>

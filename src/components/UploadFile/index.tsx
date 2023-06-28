@@ -7,6 +7,7 @@ import CancelIcon from "@mui/icons-material/Cancel";
 interface UploadFieProps {
   file: File | string | null;
   label?: string;
+  uploadLabel?: string;
   maxSize?: number;
   isVideoDisplay?: boolean;
   isLoading?: boolean;
@@ -17,13 +18,16 @@ interface UploadFieProps {
   isDisable?: boolean;
 }
 
-const BoxDropZone = styled("div")(({ theme }) => ({
+const BoxDropZone = styled(Box)(({ theme }) => ({
   display: "flex",
   cursor: "pointer",
   alignItems: "center",
+  height: "150px",
+  width: "150px",
   justifyContent: "center",
   borderRadius: "12px",
-  backgroundColor: grey[500],
+  margin: "auto",
+  backgroundColor: theme.palette.grey[200],
   "&:hover": {
     opacity: 0.8,
   },
@@ -32,18 +36,19 @@ const BoxDropZone = styled("div")(({ theme }) => ({
 function UploadFile({
   file,
   label = "Drop file here or Click to upload.",
+  uploadLabel = "Upload here",
   maxSize = 2097152,
   isVideoDisplay = false,
   isLoading = false,
   acceptType = { "image/*": [] },
-  errorMesssage = "Error to upload file.",
+  errorMesssage,
   onChange,
   onRemove,
   isDisable,
 }: UploadFieProps) {
   const [errorMsg, setErrorMsg] = useState<string | null>(null);
   useEffect(() => {
-    setErrorMsg(errorMesssage);
+    if (errorMesssage) setErrorMsg(errorMesssage);
   }, [errorMesssage]);
 
   const onDropAccepted = useCallback(
@@ -92,11 +97,31 @@ function UploadFile({
               }}
             >
               <input {...getInputProps()} />
-              <Box>
-                <CloudUploadIcon />
-                <Typography variant="body2">{label}</Typography>
+              <Box
+                display="flex"
+                flexDirection="column"
+                alignItems="center"
+                justifyContent="center"
+                sx={{ gap: "4px" }}
+              >
+                <CloudUploadIcon sx={{ color: "secondary.main" }} />
+                <Typography
+                  variant="body2"
+                  textAlign="center"
+                  sx={{ color: "secondary.main" }}
+                >
+                  {uploadLabel}
+                </Typography>
               </Box>
             </BoxDropZone>
+            <br />
+            <Typography
+              variant="body2"
+              textAlign="center"
+              sx={{ color: "secondary.main" }}
+            >
+              {label}
+            </Typography>
           </Box>
         ) : (
           <Badge
@@ -114,7 +139,7 @@ function UploadFile({
             {typeof file === "string" &&
               (isVideoDisplay ? (
                 <video
-                  width="330px"
+                  height="200px"
                   autoPlay
                   loop
                   controls
@@ -128,13 +153,14 @@ function UploadFile({
                   component="img"
                   src={file}
                   borderRadius="12px"
+                  height="200px"
                   sx={{ objectFit: "cover" }}
                 />
               ))}
             {typeof file !== "string" &&
               (file.type.includes("video") ? (
                 <video
-                  width="330px"
+                  height="200px"
                   autoPlay
                   loop
                   controls
@@ -148,13 +174,14 @@ function UploadFile({
                   component="img"
                   src={URL.createObjectURL(file)}
                   borderRadius="12px"
+                  height="200px"
                   sx={{ objectFit: "cover" }}
                 />
               ))}
           </Badge>
         )}
         {errorMsg && (
-          <Typography variant="caption" color="error.main">
+          <Typography variant="caption" textAlign="center" color="error.main">
             {errorMsg}
           </Typography>
         )}
