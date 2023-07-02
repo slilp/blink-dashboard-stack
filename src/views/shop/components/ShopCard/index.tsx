@@ -1,8 +1,27 @@
-import { MoreHorizRounded, MoreVertRounded } from "@mui/icons-material";
-import { Card, Typography, Box, Grid, IconButton } from "@mui/material";
+import {
+  Card,
+  Typography,
+  Box,
+  Grid,
+  IconButton,
+  Tooltip,
+} from "@mui/material";
 import React from "react";
+import { IShopInfo } from "views/shop/pages/ViewShopPage/mockShops";
+import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
+import MapIcon from "@mui/icons-material/Map";
+import { useTranslation } from "next-i18next";
+import Image from "next/image";
 
-function ShopCard({ pic }: any) {
+function ShopCard({
+  info,
+  onOpenPopover,
+}: {
+  info: IShopInfo;
+  onOpenPopover: (e: any, item: IShopInfo) => void;
+}) {
+  const { t } = useTranslation("shop");
+
   return (
     <Card>
       <Grid container spacing={1}>
@@ -13,32 +32,64 @@ function ShopCard({ pic }: any) {
             flexDirection="column"
             justifyContent="space-between"
           >
-            <Typography>Open</Typography>
             <Box>
-              <Typography variant="body1">Com7 อยุธยา</Typography>
-              <Typography variant="body2">
-                Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                Inventore rerum facilis porro, facere placeat pariatur impedit
-                suscipit laborum a cum? Vel tempore in ea dolor eos. Eaque odit
-                facere facilis.
+              <Tooltip title={t("Action")} placement="left" arrow>
+                <IconButton onClick={(e) => onOpenPopover(e, info)}>
+                  <MoreHorizIcon />
+                </IconButton>
+              </Tooltip>
+
+              <Tooltip title={t("Open map")} arrow placement="right">
+                <IconButton
+                  onClick={() =>
+                    window.open(
+                      `https://maps.google.com/?q=${info.latitude},${info.longitude}`,
+                      "_blank"
+                    )
+                  }
+                >
+                  <MapIcon />
+                </IconButton>
+              </Tooltip>
+            </Box>
+            <Box>
+              <Typography variant="body1">{info.name}</Typography>
+              <Typography variant="body2" color="text.secondary">
+                {info.address}
               </Typography>
             </Box>
-            <Box>
-              <IconButton>
-                <MoreHorizRounded />
-              </IconButton>
-            </Box>
+            <Typography variant="body2">
+              {t("Tel")} :{" "}
+              <Typography
+                variant="body2"
+                component="a"
+                color="text.secondary"
+                href={`tel:${info.telLink}`}
+              >
+                {info.tel}
+              </Typography>
+            </Typography>
+            <Typography variant="body2">
+              {t("Open - Close")} :{" "}
+              <Typography
+                variant="body2"
+                component="span"
+                color="text.secondary"
+              >
+                {info.open} - {info.close}
+              </Typography>
+            </Typography>
           </Box>
         </Grid>
         <Grid item xs={4}>
-          <Box
-            width="100%"
-            height={{ xs: "125px", md: "200px" }}
-            component="img"
-            src={pic}
-            borderRadius="12px"
-            sx={{ objectFit: "cover" }}
-          />
+          <Box position="relative" width="100%" height="100%">
+            <Image
+              alt={info.id}
+              src={info.img}
+              fill
+              style={{ objectFit: "cover", borderRadius: "12px" }}
+            />
+          </Box>
         </Grid>
       </Grid>
     </Card>

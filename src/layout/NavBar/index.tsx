@@ -22,7 +22,6 @@ import SettingsIcon from "@mui/icons-material/Settings";
 import MenuPopover from "components/MenuPopover";
 import { LogoutOutlined } from "@mui/icons-material";
 import { signOut, useSession } from "next-auth/react";
-import { grey } from "@mui/material/colors";
 import Brightness4Icon from "@mui/icons-material/Brightness4";
 import Brightness7Icon from "@mui/icons-material/Brightness7";
 import { changeTheme, themeModeSelector } from "redux/darkMode";

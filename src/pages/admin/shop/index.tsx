@@ -5,7 +5,10 @@ import ViewShopPage from "views/shop/pages/ViewShopPage";
 export const getServerSideProps: GetServerSideProps = async (context) => {
   return {
     props: {
-      ...(await serverSideTranslations(context.locale as string, ["common"])),
+      ...(await serverSideTranslations(context.locale as string, [
+        "common",
+        "shop",
+      ])),
     },
   };
 };
