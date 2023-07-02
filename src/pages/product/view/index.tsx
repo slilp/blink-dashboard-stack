@@ -5,7 +5,10 @@ import ViewProductPage from "views/product/pages/ViewProductPage";
 export const getServerSideProps: GetServerSideProps = async (context) => {
   return {
     props: {
-      ...(await serverSideTranslations(context.locale as string, ["common"])),
+      ...(await serverSideTranslations(context.locale as string, [
+        "common",
+        "product",
+      ])),
     },
   };
 };

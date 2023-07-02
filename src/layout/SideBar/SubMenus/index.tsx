@@ -15,33 +15,10 @@ import {
 import { useState } from "react";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
-import { grey } from "@mui/material/colors";
 import { useRouter } from "next/router";
 import CircleIcon from "@mui/icons-material/Circle";
 import { useSession } from "next-auth/react";
-
-type MenuButtonType = ListItemButtonBaseProps & {
-  active?: string;
-};
-
-const MenuButtonStyled = styled(ListItemButton)<MenuButtonType>(
-  ({ active, theme }) => ({
-    marginTop: theme.spacing(0.65),
-    marginBottom: theme.spacing(0.65),
-    color: grey[700],
-    borderRadius: "8px",
-    ...(active === "true" && {
-      color: "white",
-      backgroundColor: theme.palette.primary.light,
-      "&:hover": {
-        backgroundColor: theme.palette.primary.light,
-      },
-      svg: {
-        color: "white",
-      },
-    }),
-  })
-);
+import MenuButtonStyled from "components/MenuButtonStyled";
 
 const MenuIconStyled = styled(ListItemIcon)({
   fontSize: "1.5rem",

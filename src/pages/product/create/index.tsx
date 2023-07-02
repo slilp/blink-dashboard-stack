@@ -9,6 +9,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
         "common",
         "product",
       ])),
+      productInfo: null,
     },
   };
 };

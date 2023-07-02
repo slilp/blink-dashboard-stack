@@ -78,7 +78,7 @@ const Table = <T extends object>({
                         }
                         onClick={() => onSort(column.key)}
                       >
-                        <Typography variant="subtitle2" color="grey.600">
+                        <Typography variant="subtitle2">
                           {column.title}
                         </Typography>
                       </TableSortLabel>
@@ -103,13 +103,19 @@ const Table = <T extends object>({
                     {columns.map((column, index) => {
                       if (column?.render) {
                         return (
-                          <TableCell key={`cell-table-${index}`}>
+                          <TableCell
+                            key={`cell-table-${index}`}
+                            sx={{ width: `${100 / columns.length}%` }}
+                          >
                             {column.render(item, index)}
                           </TableCell>
                         );
                       } else {
                         return (
-                          <TableCell key={`cell-table-${index}`}>
+                          <TableCell
+                            key={`cell-table-${index}`}
+                            sx={{ width: `${100 / columns.length}%` }}
+                          >
                             {column.dataIndex !== null &&
                               (item[column.dataIndex] as string)}
                           </TableCell>

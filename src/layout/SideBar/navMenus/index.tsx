@@ -54,7 +54,7 @@ export const navMenus = (t: any): NavMenuType[] => [
             title: t("Create Product"),
             path: "/product/create",
             icon: <AddCircleIcon fontSize="small" />,
-            roles: ["admin"],
+            roles: [],
           },
         ],
       },

@@ -23,27 +23,7 @@ import CircleIcon from "@mui/icons-material/Circle";
 import { useSession } from "next-auth/react";
 import Image from "next/image";
 import { useTranslation } from "next-i18next";
-
-type MenuButtonType = ListItemButtonBaseProps & {
-  active?: string;
-};
-
-const MenuButtonStyled = styled(ListItemButton)<MenuButtonType>(
-  ({ active, theme }) => ({
-    color: grey[700],
-    borderRadius: "8px",
-    ...(active === "true" && {
-      color: "white",
-      backgroundColor: theme.palette.primary.light,
-      "&:hover": {
-        backgroundColor: theme.palette.primary.light,
-      },
-      svg: {
-        color: "white",
-      },
-    }),
-  })
-);
+import MenuButtonStyled from "components/MenuButtonStyled";
 
 function MiniMenus() {
   const [anchorEl, setAnchorEl] = useState<HTMLButtonElement | null>(null);

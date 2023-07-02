@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import {
   createProductFormValidationSchema,
   CreateProductFormType,
@@ -8,7 +8,7 @@ import { Resolver, useForm } from "react-hook-form";
 import { useTranslation } from "next-i18next";
 import CreateProductForm from "views/product/components/CreateProductForm";
 
-function CreateProductPage() {
+function CreateProductCodePage({ productInfo }: any) {
   const { t } = useTranslation("product");
   const resolver: Resolver<CreateProductFormType> = yupResolver(
     createProductFormValidationSchema(t)
@@ -23,7 +23,11 @@ function CreateProductPage() {
     setValue,
   } = useForm<CreateProductFormType>({ resolver });
 
+  useEffect(() => {
+    if (productInfo) reset(productInfo);
+  }, []);
+
   return <CreateProductForm handleSubmit={handleSubmit} control={control} />;
 }
 
-export default CreateProductPage;
+export default CreateProductCodePage;

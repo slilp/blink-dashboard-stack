@@ -32,11 +32,7 @@ import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import TranslateIcon from "@mui/icons-material/Translate";
 import { useTranslation } from "next-i18next";
-
-const MenuButtonStyled = styled(ListItemButton)(({ theme }) => ({
-  color: grey[700],
-  borderRadius: "8px",
-}));
+import MenuButtonStyled from "components/MenuButtonStyled";
 
 function NavBar({ drawerWidth, setExpandMobileMenu }: any) {
   const [anchorEl, setAnchorEl] = useState<HTMLButtonElement | null>(null);

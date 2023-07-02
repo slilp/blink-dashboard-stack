@@ -22,19 +22,21 @@ function ViewShopPage() {
         <meta name="description" content="Shop" />
       </Head>
       <Box display="flex" justifyContent="space-between" mb="2rem">
-        <Typography variant="h6">Shops</Typography>
+        <Typography variant="h6">
+          Shops{" "}
+          <Typography variant="body1" color="text.secondary">
+            (Only Admin role can see this page)
+          </Typography>
+        </Typography>
       </Box>
 
-      <Tabs value={filterStatus} onChange={handleFilterStatus}>
-        <Tab value="all" label="All" />
-        <Tab value="selling" label="Selling" />
-        <Tab value="waiting" label="Waiting" />
-        <Tab value="stop" label="Stop" />
-      </Tabs>
       <Grid container spacing={2}>
         {[
           "https://www.mcmillandoolittle.com/wp-content/uploads/2021/09/Target-Ulta-1.jpg",
           "https://www.kare-design.com/wp-content/uploads/2015/08/2.jpg",
+          "https://www.mcmillandoolittle.com/wp-content/uploads/2021/09/Target-Ulta-1.jpg",
+          "https://www.kare-design.com/wp-content/uploads/2015/08/2.jpg",
+          "https://www.mcmillandoolittle.com/wp-content/uploads/2021/09/Target-Ulta-1.jpg",
         ].map((pic, index) => (
           <Grid key={`shop-card-${index}`} item xs={12} sm={6}>
             <ShopCard pic={pic} />

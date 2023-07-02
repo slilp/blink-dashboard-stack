@@ -1,10 +1,19 @@
 import type { GetServerSideProps } from "next";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
-import CreateProductPage from "views/product/pages/CreateProductPage";
+import CreateProductCodePage from "views/product/pages/CreateProductCodePage";
+import { mockProducts } from "pages/api/product/mockProducts";
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
+  const { locale } = context;
   const { code } = context.query;
-
+  const product = mockProducts.find((item) => item.code === code);
+  if (!product)
+    return {
+      redirect: {
+        destination: locale === "en" ? "/404" : `/${locale}/404`,
+        permanent: false,
+      },
+    };
   return {
     props: {
       ...(await serverSideTranslations(context.locale as string, [
@@ -12,13 +21,13 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
         "product",
       ])),
       productInfo: {
-        name: "Macbook pro",
-        desc: "Amazing new macbook",
+        name: product.name,
+        desc: product.name,
         stock: 123,
-        color: "Space grey",
+        color: product.colorLabel,
         warranty: true,
-        brand: "Apple",
-        status: "selling",
+        brand: product.brand,
+        status: product.status,
         promotions: [
           {
             promotionId: "promo1",
@@ -29,10 +38,10 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
             label: "20% discount",
           },
         ],
-        img: "https://store.storeimages.cdn-apple.com/8756/as-images.apple.com/is/macbook-air-space-gray-select-201810?wid=904&hei=840&fmt=jpeg&qlt=90&.v=1664472289661",
+        img: product.img,
       },
     },
   };
 };
 
-export default CreateProductPage;
+export default CreateProductCodePage;

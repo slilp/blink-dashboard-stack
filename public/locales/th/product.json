@@ -11,5 +11,17 @@
   "Promotion": "โปรโมชัน",
   "Warranty": "การรัับประกัน",
   "Required field": "โปรดใส่ข้อมูลนี้",
-  "Minimum one": "เลือกอย่างน้อย 1 ตัว"
+  "Minimum one": "เลือกอย่างน้อย 1 ตัว",
+  "Products": "สินค้า",
+  "Total record": "จำนวนรายการ",
+  "Create new product": "เพิ่มสินค้า",
+  "All": "ทั้งหมด",
+  "Selling": "กำลังวางขาย",
+  "Waiting": "รอจัดจำหน่าย",
+  "Stop": "ไม่จำหน่ายแล้ว",
+  "View": "ดู",
+  "Edit": "แก้ไข",
+  "Delete": "ลบ",
+  "Code": "รหัสสินค้า",
+  "Action": "จัดการ"
 }

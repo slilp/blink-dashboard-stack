@@ -4,125 +4,121 @@ import {
   Card,
   Divider,
   IconButton,
+  List,
+  ListItem,
+  ListItemIcon,
+  ListItemText,
   Tab,
   Tabs,
   Typography,
 } from "@mui/material";
 import Head from "next/head";
 import React, { useCallback, useState } from "react";
+import MenuPopover from "components/MenuPopover";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import { MoreVertRounded } from "@mui/icons-material";
 import Table, { ColumnTable } from "components/Table";
-
-interface IProduct {
-  code: string;
-  name: string;
-  desc: string;
-  img: string;
-  brand: string;
-}
-
-const datas: IProduct[] = [
-  {
-    code: "P0001",
-    name: "Macbook air",
-    desc: "Macbook air",
-    brand: "apple",
-    img: "https://store.storeimages.cdn-apple.com/8756/as-images.apple.com/is/mba15-midnight-select-202306",
-  },
-  {
-    code: "P0002",
-    name: "Macbook air",
-    desc: "Macbook air",
-    brand: "apple",
-    img: "https://store.storeimages.cdn-apple.com/8756/as-images.apple.com/is/mba15-midnight-select-202306",
-  },
-  {
-    code: "P0003",
-    name: "Macbook air",
-    desc: "Macbook air",
-    brand: "apple",
-    img: "https://store.storeimages.cdn-apple.com/8756/as-images.apple.com/is/mba15-midnight-select-202306",
-  },
-  {
-    code: "P0004",
-    name: "Macbook air",
-    desc: "Macbook air",
-    brand: "apple",
-    img: "https://store.storeimages.cdn-apple.com/8756/as-images.apple.com/is/mba15-midnight-select-202306",
-  },
-  {
-    code: "P0005",
-    name: "Macbook air",
-    desc: "Macbook air",
-    brand: "apple",
-    img: "https://store.storeimages.cdn-apple.com/8756/as-images.apple.com/is/mba15-midnight-select-202306",
-  },
-  {
-    code: "P0006",
-    name: "Macbook air",
-    desc: "Macbook air",
-    brand: "apple",
-    img: "https://store.storeimages.cdn-apple.com/8756/as-images.apple.com/is/mba15-midnight-select-202306",
-  },
-  {
-    code: "P0007",
-    name: "Macbook air",
-    desc: "Macbook air",
-    brand: "apple",
-    img: "https://store.storeimages.cdn-apple.com/8756/as-images.apple.com/is/mba15-midnight-select-202306",
-  },
-  {
-    code: "P0008",
-    name: "Macbook air",
-    desc: "Macbook air",
-    brand: "apple",
-    img: "https://store.storeimages.cdn-apple.com/8756/as-images.apple.com/is/mba15-midnight-select-202306",
-  },
-];
-
-const columns: ColumnTable<IProduct>[] = [
-  {
-    title: "",
-    dataIndex: "img",
-    key: "imgProduct",
-    render: (val: IProduct) => (
-      <Box component="img" src={val.img} height="50px" width="50px" />
-    ),
-  },
-  {
-    title: "Code",
-    dataIndex: "code",
-    key: "code",
-  },
-  {
-    title: "Name",
-    dataIndex: "name",
-    key: "name",
-  },
-  {
-    title: "Brand",
-    dataIndex: "brand",
-    key: "brand",
-    render: (val: IProduct) => <Box bgcolor="red">{val.brand}</Box>,
-  },
-  {
-    title: "Action",
-    dataIndex: null,
-    key: "action",
-    render: (val: IProduct) => (
-      <IconButton>
-        <MoreVertRounded />
-      </IconButton>
-    ),
-  },
-];
+import {
+  IProduct,
+  mockProducts,
+} from "../../../../pages/api/product/mockProducts";
+import Image from "next/image";
+import { useRouter } from "next/router";
+import { useTranslation } from "next-i18next";
+import ModeEditIcon from "@mui/icons-material/ModeEdit";
+import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
+import RemoveRedEyeIcon from "@mui/icons-material/RemoveRedEye";
+import MenuButtonStyled from "components/MenuButtonStyled";
+import useFetchProducts from "views/product/components/useFetchProducts";
 
 function ProductViewPage() {
   const [page, setPage] = useState(0);
-  const [filterStatus, setFilterStatus] = useState("");
+  const [filterStatus, setFilterStatus] = useState("all");
   const [rowsPerPage, setRowsPerPage] = useState(5);
   const [order, setOrder] = useState<"asc" | "desc">();
+  const [selectedCode, setSelectedCode] = useState("");
+  const router = useRouter();
+  const { t } = useTranslation("product");
+  const { data, isLoading } = useFetchProducts({
+    status: filterStatus,
+    pageIndex: page,
+    pageSize: rowsPerPage,
+    order,
+  });
+
+  const [anchorEl, setAnchorEl] = useState<HTMLButtonElement | null>(null);
+
+  const onOpenPopover = (event: any, item: IProduct) => {
+    setAnchorEl(event.currentTarget);
+
+    setSelectedCode(item.code);
+  };
+
+  const columns: ColumnTable<IProduct>[] = [
+    {
+      title: "",
+      dataIndex: "img",
+      key: "imgProduct",
+      render: (val: IProduct) => (
+        <Image
+          alt={val.name}
+          src={val.img}
+          height={50}
+          width={50}
+          style={{ borderRadius: "12px" }}
+        />
+      ),
+    },
+    {
+      title: t("Code"),
+      dataIndex: "code",
+      key: "code",
+    },
+    {
+      title: t("Name"),
+      dataIndex: "name",
+      key: "name",
+    },
+    {
+      title: t("Brand"),
+      dataIndex: "brand",
+      key: "brand",
+    },
+    {
+      title: t("Color"),
+      dataIndex: "colorLabel",
+      key: "colorLabel",
+      render: (val: IProduct) => (
+        <Box display="flex" sx={{ gap: "8px" }}>
+          <Typography variant="body2"> {val.colorLabel}</Typography>
+          <Box
+            bgcolor={val.colorCode}
+            height="20px"
+            width="20px"
+            borderRadius="100%"
+          />
+        </Box>
+      ),
+    },
+    {
+      title: t("Status"),
+      dataIndex: "status",
+      key: "status",
+      render: (val: IProduct) => (
+        <Typography variant="body2"> {mapStatus[val.status]}</Typography>
+      ),
+    },
+    {
+      title: t("Action"),
+      dataIndex: null,
+      key: "action",
+      render: (val: IProduct) => (
+        <IconButton onClick={(e) => onOpenPopover(e, val)}>
+          <MoreVertRounded />
+        </IconButton>
+      ),
+    },
+  ];
 
   const onChangeRowsPerPage = useCallback(
     (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -151,42 +147,51 @@ function ProductViewPage() {
     setFilterStatus(newValue);
   };
 
+  const mapStatus = {
+    selling: t("Selling"),
+    waiting: t("Waiting"),
+    stop: t("Stop"),
+  };
+
   return (
     <>
       <Head>
-        <title>Product</title>
+        <title>{t("Product")}</title>
         <meta name="description" content="Product" />
       </Head>
       <Box display="flex" justifyContent="space-between" mb="2rem">
-        <Typography variant="h6">Products</Typography>
-        <Button variant="contained" startIcon={<AddCircleOutlineIcon />}>
-          Create new product
+        <Typography variant="h6"> {t("Products")}</Typography>
+        <Button
+          variant="contained"
+          startIcon={<AddCircleOutlineIcon />}
+          onClick={() => router.push("/product/create/")}
+        >
+          {t("Create new product")}
         </Button>
       </Box>
       <Card sx={{ padding: "0" }}>
         <Box p={2}>
-          <Typography variant="body1">Total record 50</Typography>
+          <Typography variant="body1">
+            {t("Total record")} {data?.data?.total}
+          </Typography>
         </Box>
         <Divider />
 
         <Tabs value={filterStatus} onChange={handleFilterStatus}>
-          <Tab value="all" label="All" />
-          <Tab value="selling" label="Selling" />
-          <Tab value="waiting" label="Waiting" />
-          <Tab value="stop" label="Stop" />
+          <Tab value="all" label={t("All")} />
+          <Tab value="selling" label={t("Selling")} />
+          <Tab value="waiting" label={t("Waiting")} />
+          <Tab value="stop" label={t("Stop")} />
         </Tabs>
 
         <Divider />
         <Table<IProduct>
           columns={columns}
           page={page}
-          totalRecord={datas.length}
-          isLoading={false}
-          dataSource={datas.slice(
-            page * rowsPerPage,
-            page * rowsPerPage + rowsPerPage
-          )}
-          notFoundText="ไม่เจอนะ"
+          totalRecord={data?.data?.total || 0}
+          isLoading={isLoading}
+          dataSource={data?.data?.products || []}
+          notFoundText="No data"
           onChangeRowPerPage={onChangeRowsPerPage}
           onChangePage={onChangePage}
           rowsPerPageOptions={[5, 10, 15]}
@@ -195,6 +200,58 @@ function ProductViewPage() {
           orderBy="code"
           onSort={onSortCode}
         />
+        <MenuPopover
+          open={Boolean(anchorEl)}
+          anchorEl={anchorEl}
+          onClose={() => setAnchorEl(null)}
+          anchorOrigin={{
+            vertical: "bottom",
+            horizontal: "center",
+          }}
+          transformOrigin={{
+            vertical: "top",
+            horizontal: "center",
+          }}
+        >
+          <List sx={{ color: "text.secondary" }}>
+            {[
+              {
+                key: "popover-view-btn",
+                label: t("View"),
+                icon: <RemoveRedEyeIcon fontSize="small" />,
+                color: "text.secondary",
+                url: `/product/create/${selectedCode}`,
+              },
+              {
+                key: "popover-edit-btn",
+                label: t("Edit"),
+                icon: <ModeEditIcon fontSize="small" />,
+                color: "text.secondary",
+                url: `/product/create/${selectedCode}`,
+              },
+              {
+                key: "popover-del-btn",
+                label: t("Delete"),
+                icon: <DeleteForeverIcon fontSize="small" />,
+                color: "error.main",
+                url: "",
+              },
+            ].map((pop) => (
+              <ListItem key={pop.key} disablePadding>
+                <MenuButtonStyled
+                  onClick={() => (pop.url ? router.push(pop.url) : null)}
+                >
+                  <ListItemIcon sx={{ color: pop.color }}>
+                    {pop.icon}
+                  </ListItemIcon>
+                  <ListItemText sx={{ color: pop.color }}>
+                    {pop.label}
+                  </ListItemText>
+                </MenuButtonStyled>
+              </ListItem>
+            ))}
+          </List>
+        </MenuPopover>
       </Card>
     </>
   );

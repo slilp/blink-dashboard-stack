@@ -11,8 +11,16 @@ import createEmotionCache from "styles/createEmotionCache";
 import { appWithTranslation } from "next-i18next";
 import { Provider } from "react-redux";
 import { store } from "../redux/store";
+import {
+  QueryClient,
+  QueryClientProvider,
+  Hydrate,
+  DehydratedState,
+} from "@tanstack/react-query";
+import { useState } from "react";
 
 type ExtendedAppProps = AppProps & {
+  dehydratedState: DehydratedState;
   emotionCache?: EmotionCache;
   session: Session;
 };
@@ -23,24 +31,40 @@ function App({
   pageProps,
   emotionCache = clientSideEmotionCache,
   session,
+  dehydratedState,
   ...appProps
 }: ExtendedAppProps) {
+  const [queryClient] = useState(
+    () =>
+      new QueryClient({
+        defaultOptions: {
+          queries: {
+            refetchOnWindowFocus: false,
+            retry: 0,
+          },
+        },
+      })
+  );
   return (
     <CacheProvider value={emotionCache}>
-      <ThemeProvider theme={theme}>
-        <Provider store={store}>
-          <SessionProvider session={session}>
-            <CssBaseline />
-            {["/login", "/register"].includes(appProps.router.pathname) ? (
-              <Component {...pageProps} />
-            ) : (
-              <Layout>
-                <Component {...pageProps} />
-              </Layout>
-            )}
-          </SessionProvider>
-        </Provider>
-      </ThemeProvider>
+      <QueryClientProvider client={queryClient}>
+        <Hydrate state={pageProps?.dehydratedState || null}>
+          <ThemeProvider theme={theme}>
+            <Provider store={store}>
+              <SessionProvider session={session}>
+                <CssBaseline />
+                {["/login", "/register"].includes(appProps.router.pathname) ? (
+                  <Component {...pageProps} />
+                ) : (
+                  <Layout>
+                    <Component {...pageProps} />
+                  </Layout>
+                )}
+              </SessionProvider>
+            </Provider>
+          </ThemeProvider>
+        </Hydrate>
+      </QueryClientProvider>
     </CacheProvider>
   );
 }
