@@ -1,9 +1,6 @@
-import "../styles/globals.css";
-import CssBaseline from "@mui/material/CssBaseline";
 import type { AppProps } from "next/app";
-import { ThemeProvider } from "@mui/material/styles";
+import ThemeProvider from "styles";
 import Layout from "layout";
-import theme from "../styles/theme";
 import { CacheProvider, EmotionCache } from "@emotion/react";
 import { SessionProvider } from "next-auth/react";
 import { Session } from "next-auth";
@@ -49,10 +46,13 @@ function App({
     <CacheProvider value={emotionCache}>
       <QueryClientProvider client={queryClient}>
         <Hydrate state={pageProps?.dehydratedState || null}>
-          <ThemeProvider theme={theme}>
-            <Provider store={store}>
-              <SessionProvider session={session}>
-                <CssBaseline />
+          <Provider store={store}>
+            <SessionProvider session={session}>
+              <ThemeProvider
+                isMainLayout={
+                  !["/login", "/register"].includes(appProps.router.pathname)
+                }
+              >
                 {["/login", "/register"].includes(appProps.router.pathname) ? (
                   <Component {...pageProps} />
                 ) : (
@@ -60,9 +60,9 @@ function App({
                     <Component {...pageProps} />
                   </Layout>
                 )}
-              </SessionProvider>
-            </Provider>
-          </ThemeProvider>
+              </ThemeProvider>
+            </SessionProvider>
+          </Provider>
         </Hydrate>
       </QueryClientProvider>
     </CacheProvider>

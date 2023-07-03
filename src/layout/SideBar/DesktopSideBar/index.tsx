@@ -15,6 +15,7 @@ function DesktopSidebar({ expandMenu, setExpandMenu }: any) {
           boxSizing: "border-box",
           width: expandMenu ? 240 : 100,
           transition: "width 0.25s",
+          backgroundColor: "background.default",
         },
       }}
       PaperProps={{

@@ -27,7 +27,13 @@ function CreateProductCodePage({ productInfo }: any) {
     if (productInfo) reset(productInfo);
   }, []);
 
-  return <CreateProductForm handleSubmit={handleSubmit} control={control} />;
+  return (
+    <CreateProductForm
+      handleSubmit={handleSubmit}
+      control={control}
+      isEdit={true}
+    />
+  );
 }
 
 export default CreateProductCodePage;

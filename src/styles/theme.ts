@@ -1,7 +1,7 @@
 import { Roboto } from "next/font/google";
 import localFont from "next/font/local";
 import { Theme, createTheme } from "@mui/material/styles";
-import { red } from "@mui/material/colors";
+import { deepOrange, green, grey, red } from "@mui/material/colors";
 import OverridesComponents from "./overrides";
 
 export const rubikFont = localFont({
@@ -91,25 +91,44 @@ export const roboto = Roboto({
   fallback: ["Helvetica", "Arial", "sans-serif"],
 });
 
-// Create a theme instance.
-
-const theme: any = createTheme({
-  palette: {
-    // primary: {
-    //   main: "#000000",
-    // },
-    secondary: {
-      main: "#19857b",
-    },
-    error: {
-      main: red.A400,
-    },
+const COMMON_STYLES = {
+  primary: {
+    main: "#087EA4",
+    light: "#cde5ec",
+    dark: "#077193",
   },
-  typography: {
-    fontFamily: kanitFont.style.fontFamily,
+};
+
+const DARK_STYLES = {
+  ...COMMON_STYLES,
+  text: {
+    primary: "#ffffff",
+    secondary: grey[500],
   },
-});
+  background: {
+    default: "#161C24",
+    paper: "#212B36",
+  },
+};
 
-theme.components = OverridesComponents(theme);
+const LIGHT_STYLES = {
+  ...COMMON_STYLES,
+};
 
-export default theme;
+export default (mode: "dark" | "light") => {
+  const selectedPalette = mode === "dark" ? DARK_STYLES : LIGHT_STYLES;
+
+  const theme: any = createTheme({
+    palette: {
+      mode,
+      ...selectedPalette,
+    },
+    typography: {
+      fontFamily: kanitFont.style.fontFamily,
+    },
+  });
+
+  theme.components = OverridesComponents(theme);
+
+  return theme;
+};

@@ -17,6 +17,7 @@ function MobileSideBar({ expandMobileMenu, setExpandMobileMenu }: any) {
       }}
       sx={{
         display: { xs: "block", md: "none" },
+        backgroundColor: "background.default",
         "& .MuiDrawer-paper": { boxSizing: "border-box", width: 240 },
       }}
     >

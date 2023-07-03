@@ -51,6 +51,7 @@ function Menus({ setExpandMobileMenu }: { setExpandMobileMenu?: any }) {
           p={1}
           mt={5}
           mb={2}
+          color="#000"
         >
           <Image
             style={{ marginTop: "-45px" }}

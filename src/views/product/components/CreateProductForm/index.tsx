@@ -36,7 +36,7 @@ const promotionList = [
   { promotionId: "promo5", label: "Buy 1 get 1 free" },
 ];
 
-function CreateProductForm({ handleSubmit, control }: any) {
+function CreateProductForm({ handleSubmit, control, isEdit = false }: any) {
   const { t } = useTranslation("product");
 
   const onSubmitLogin = (data: CreateProductFormType) => {
@@ -49,7 +49,9 @@ function CreateProductForm({ handleSubmit, control }: any) {
         <title>{t("Product")}</title>
       </Head>
       <Box display="flex" justifyContent="space-between" mb="2rem">
-        <Typography variant="h6">{t("Create New Product")}</Typography>
+        <Typography variant="h6">
+          {isEdit ? t("Update Product") : t("Create New Product")}
+        </Typography>
       </Box>
       <Box component="form">
         <Grid container spacing={1}>
@@ -299,7 +301,7 @@ function CreateProductForm({ handleSubmit, control }: any) {
                       type="submit"
                       variant="contained"
                     >
-                      {t("Create New Product")}{" "}
+                      {isEdit ? t("Update Product") : t("Create New Product")}{" "}
                     </Button>
                   </Box>
                 </Grid>

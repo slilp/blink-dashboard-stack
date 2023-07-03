@@ -27,7 +27,7 @@ const BoxDropZone = styled(Box)(({ theme }) => ({
   justifyContent: "center",
   borderRadius: "12px",
   margin: "auto",
-  backgroundColor: theme.palette.grey[200],
+  backgroundColor: theme.palette.primary.light,
   "&:hover": {
     opacity: 0.8,
   },
@@ -103,23 +103,16 @@ function UploadFile({
                 alignItems="center"
                 justifyContent="center"
                 sx={{ gap: "4px" }}
+                color="#000"
               >
-                <CloudUploadIcon sx={{ color: "secondary.main" }} />
-                <Typography
-                  variant="body2"
-                  textAlign="center"
-                  sx={{ color: "secondary.main" }}
-                >
+                <CloudUploadIcon />
+                <Typography variant="body2" textAlign="center">
                   {uploadLabel}
                 </Typography>
               </Box>
             </BoxDropZone>
             <br />
-            <Typography
-              variant="body2"
-              textAlign="center"
-              sx={{ color: "secondary.main" }}
-            >
+            <Typography variant="body2" textAlign="center">
               {label}
             </Typography>
           </Box>

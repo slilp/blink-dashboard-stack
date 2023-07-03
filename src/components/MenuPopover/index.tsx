@@ -1,4 +1,4 @@
-import { PopoverProps, Popover } from "@mui/material";
+import { PopoverProps, Popover, alpha } from "@mui/material";
 import React from "react";
 
 function MenuPopover({ children, ...props }: PopoverProps) {
@@ -11,7 +11,8 @@ function MenuPopover({ children, ...props }: PopoverProps) {
           boxShadow: 1,
           backgroundImage: "none",
           backdropFilter: "blur(6px)",
-          backgroundColor: "rgba(255, 255, 255, 0.8)",
+          backgroundColor: "background.paper",
+          opacity: 0.8,
           transition: "height 200ms cubic-bezier(0.4, 0, 0.2, 1) 0ms",
         },
       }}

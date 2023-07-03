@@ -9,13 +9,13 @@ const MenuButtonStyled = styled(ListItemButton)<MenuButtonType>(
     color: theme.palette.text.secondary,
     borderRadius: "8px",
     ...(active === "true" && {
-      color: "white",
+      color: theme.palette.primary.main,
       backgroundColor: theme.palette.primary.light,
       "&:hover": {
         backgroundColor: theme.palette.primary.light,
       },
       svg: {
-        color: "white",
+        color: theme.palette.primary.main,
       },
     }),
   })

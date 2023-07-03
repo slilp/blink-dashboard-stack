@@ -61,7 +61,7 @@ function NavBar({ drawerWidth, setExpandMobileMenu }: any) {
         right: "0",
         zIndex: "1000",
         backdropFilter: "blur(6px)",
-        backgroundColor: "rgba(255, 255, 255, 0.8)",
+        backgroundColor: "rgba(0, 0, 0, 0)",
         transition: "height 200ms cubic-bezier(0.4, 0, 0.2, 1) 0ms",
       }}
     >
@@ -113,7 +113,7 @@ function NavBar({ drawerWidth, setExpandMobileMenu }: any) {
 
               <Button
                 onClick={onOpenPopover}
-                sx={{ color: "grey.600", width: "150px" }}
+                sx={{ color: "text.primary", width: "150px" }}
                 startIcon={<AccountCircle />}
                 endIcon={
                   anchorEl === null ? <ChevronRightIcon /> : <ExpandMoreIcon />
