@@ -18,10 +18,7 @@ import MenuPopover from "components/MenuPopover";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import Table, { ColumnTable } from "components/Table";
-import {
-  IProduct,
-  mockProducts,
-} from "../../../../pages/api/product/mockProducts";
+import { IProduct } from "../../../../pages/api/product/mockProducts";
 import Image from "next/image";
 import { useRouter } from "next/router";
 import { useTranslation } from "next-i18next";
