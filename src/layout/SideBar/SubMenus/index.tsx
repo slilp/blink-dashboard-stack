@@ -35,7 +35,8 @@ function SubMenus({ menu, index }: any) {
       <MenuButtonStyled
         key={`mainmenu-${index}`}
         active={
-          (router.pathname === menu.path ||
+          ((router.pathname === "/" && router.pathname === menu.path) ||
+            (router.pathname.includes(menu.path) && menu.path !== "/") ||
             menu?.subMenus?.some((m: any) => router.pathname === m.path)) + ""
         }
         onClick={() =>

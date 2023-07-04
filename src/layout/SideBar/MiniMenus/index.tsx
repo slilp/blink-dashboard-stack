@@ -1,10 +1,7 @@
 import React from "react";
 import {
   Typography,
-  ListItemButton,
   Stack,
-  styled,
-  ListItemButtonBaseProps,
   Icon,
   List,
   Divider,
@@ -16,7 +13,6 @@ import {
 import { navMenus } from "../navMenus";
 import { useState } from "react";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
-import { grey } from "@mui/material/colors";
 import MenuPopover from "components/MenuPopover";
 import { useRouter } from "next/router";
 import CircleIcon from "@mui/icons-material/Circle";
@@ -55,7 +51,10 @@ function MiniMenus() {
                     my: "0.25rem",
                   }}
                   active={
-                    (router.pathname === menu.path ||
+                    ((router.pathname === "/" &&
+                      router.pathname === menu.path) ||
+                      (router.pathname.includes(menu.path) &&
+                        menu.path !== "/") ||
                       menu?.subMenus?.some(
                         (m: any) => router.pathname === m.path
                       )) + ""

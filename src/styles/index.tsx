@@ -3,7 +3,6 @@ import themeMode from "./theme";
 import { ThemeProvider } from "@emotion/react";
 import { CssBaseline } from "@mui/material";
 import GlobalStyles from "./globalStyles";
-import { useRouter } from "next/router";
 import { useEffect } from "react";
 import { changeTheme } from "redux/darkMode";
 
