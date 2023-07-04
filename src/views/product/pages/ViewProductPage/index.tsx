@@ -16,7 +16,7 @@ import Head from "next/head";
 import React, { useCallback, useState } from "react";
 import MenuPopover from "components/MenuPopover";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
-import { MoreVertRounded } from "@mui/icons-material";
+import MoreVertIcon from "@mui/icons-material/MoreVert";
 import Table, { ColumnTable } from "components/Table";
 import {
   IProduct,
@@ -114,7 +114,7 @@ function ProductViewPage() {
       key: "action",
       render: (val: IProduct) => (
         <IconButton onClick={(e) => onOpenPopover(e, val)}>
-          <MoreVertRounded />
+          <MoreVertIcon />
         </IconButton>
       ),
     },

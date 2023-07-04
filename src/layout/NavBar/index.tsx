@@ -20,7 +20,7 @@ import MenuOpenIcon from "@mui/icons-material/MenuOpen";
 import AccountCircle from "@mui/icons-material/AccountCircle";
 import SettingsIcon from "@mui/icons-material/Settings";
 import MenuPopover from "components/MenuPopover";
-import { LogoutOutlined } from "@mui/icons-material";
+import LogoutIcon from "@mui/icons-material/Logout";
 import { signOut, useSession } from "next-auth/react";
 import Brightness4Icon from "@mui/icons-material/Brightness4";
 import Brightness7Icon from "@mui/icons-material/Brightness7";
@@ -222,7 +222,7 @@ function NavBar({ drawerWidth, setExpandMobileMenu }: any) {
                   }
                 >
                   <ListItemIcon sx={{ fontSize: "1.5rem" }}>
-                    <LogoutOutlined />
+                    <LogoutIcon />
                   </ListItemIcon>
                   <ListItemText>
                     <Typography variant="body2">{t("Logout")}</Typography>

@@ -21,7 +21,8 @@ import {
 } from "views/login/utils/registerForm";
 import { Controller, Resolver, useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { Visibility, VisibilityOff } from "@mui/icons-material";
+import VisibilityIcon from "@mui/icons-material/Visibility";
+import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
 import Image from "next/image";
 import { useTranslation } from "next-i18next";
 
@@ -140,9 +141,9 @@ function RegisterPage() {
                             }
                           >
                             {showPassword ? (
-                              <Visibility fontSize="small" />
+                              <VisibilityIcon fontSize="small" />
                             ) : (
-                              <VisibilityOff fontSize="small" />
+                              <VisibilityOffIcon fontSize="small" />
                             )}
                           </IconButton>
                         </InputAdornment>
@@ -179,9 +180,9 @@ function RegisterPage() {
                             }
                           >
                             {showConfirmPassword ? (
-                              <Visibility fontSize="small" />
+                              <VisibilityIcon fontSize="small" />
                             ) : (
-                              <VisibilityOff fontSize="small" />
+                              <VisibilityOffIcon fontSize="small" />
                             )}
                           </IconButton>
                         </InputAdornment>
