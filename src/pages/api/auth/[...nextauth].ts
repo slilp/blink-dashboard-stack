@@ -29,15 +29,36 @@ export const authOptions: NextAuthOptions = {
         password: { label: "Password", type: "password" },
       },
       async authorize(credentials, req) {
-        const user = {
-          id: "1",
-          name: "Slil Puangpoom",
-          email: credentials?.username,
-          accessToken: "accessTokenMock",
-          refreshToken: "refreshTokenMock",
-          accessTokenExpires: Date.now() + 1000 * 1000,
-          role: credentials?.username === "admin@email.com" ? "admin" : "user",
-        };
+        let user = null;
+        if (
+          credentials?.username === "admin@email.com" &&
+          credentials.password === "admin1234"
+        ) {
+          user = {
+            id: "1",
+            name: "I am Admin",
+            email: credentials?.username,
+            accessToken: "accessTokenMock",
+            refreshToken: "refreshTokenMock",
+            accessTokenExpires: Date.now() + 1000 * 1000,
+            role: "admin",
+          };
+        }
+
+        if (
+          credentials?.username === "user@email.com" &&
+          credentials.password === "user1234"
+        ) {
+          user = {
+            id: "2",
+            name: "I am user",
+            email: credentials?.username,
+            accessToken: "accessTokenMock",
+            refreshToken: "refreshTokenMock",
+            accessTokenExpires: Date.now() + 1000 * 1000,
+            role: "user",
+          };
+        }
 
         if (user) {
           return user;

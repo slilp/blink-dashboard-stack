@@ -9,8 +9,6 @@ import {
   Toolbar,
   Divider,
   ListItemText,
-  ListItemButton,
-  styled,
   Typography,
   ListItemIcon,
   Button,
@@ -171,7 +169,7 @@ function NavBar({ drawerWidth, setExpandMobileMenu }: any) {
       </MenuPopover>
 
       <MenuPopover
-        sx={{ width: "250px" }}
+        sx={{ width: "300px" }}
         open={Boolean(anchorEl)}
         anchorEl={anchorEl}
         onClose={() => setAnchorEl(null)}

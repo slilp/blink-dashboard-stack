@@ -12,5 +12,7 @@
   "Passwords must match": "Passwords must match",
   "Create new account": "Create new account",
   "Create new account with social network": "Create new account with social network",
-  "Already have an account": "Already have an account"
+  "Already have an account": "Already have an account",
+  "Invalid username or password": "Invalid username or password",
+  "Invalid format": "Invalid format"
 }

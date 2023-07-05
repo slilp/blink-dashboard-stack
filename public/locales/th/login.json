@@ -12,5 +12,7 @@
   "Passwords must match": "รหัสผ่านไม่ตรงกัน",
   "Create new account": "สร้างบัญชีใหม่",
   "Create new account with social network": "สร้างบัญชีใหม่ด้วย social network",
-  "Already have an account": "มีบัญชีอยู่แล้ว"
+  "Already have an account": "มีบัญชีอยู่แล้ว",
+  "Invalid username or password": "ชื่อบัญชี หรือ รหัสผ่าน ไม่ถูกต้อง",
+  "Invalid format": "รูปแบบไม่ถูกต้อง"
 }

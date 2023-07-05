@@ -8,9 +8,11 @@ import {
   IconButton,
   Divider,
   InputAdornment,
+  Snackbar,
+  Alert,
 } from "@mui/material";
 import Head from "next/head";
-import React, { useState, useTransition } from "react";
+import React, { useEffect, useState, useTransition } from "react";
 import UnauthenNavbar from "views/login/components/UnauthenNavbar";
 import FacebookIcon from "@mui/icons-material/Facebook";
 import GoogleIcon from "@mui/icons-material/Google";
@@ -33,7 +35,7 @@ function LoginPage() {
   const resolver: Resolver<LoginFormType> = yupResolver(
     loginFormValidationSchema(t)
   );
-  const { locale } = useRouter();
+  const { locale, query } = useRouter();
   const {
     handleSubmit,
     register,
@@ -44,6 +46,7 @@ function LoginPage() {
     setValue,
   } = useForm<LoginFormType>({ resolver });
   const [showPassword, setShowPassword] = useState(false);
+  const [isError, setIsError] = useState(false);
 
   const onSubmitLogin = (data: LoginFormType) => {
     signIn("credentials", {
@@ -52,6 +55,10 @@ function LoginPage() {
       callbackUrl: locale === "en" ? "/" : `/${locale}`,
     });
   };
+
+  useEffect(() => {
+    if (query?.error && query?.error === "CredentialsSignin") setIsError(true);
+  }, []);
 
   return (
     <>
@@ -76,7 +83,7 @@ function LoginPage() {
             display="flex"
             alignItems="center"
             justifyContent="center"
-            height="100%"
+            height="80vh"
           >
             <Box
               display="flex"
@@ -103,6 +110,23 @@ function LoginPage() {
               <Box m="auto" marginTop="-1.75rem" bgcolor="#ffffff" width="3rem">
                 <Typography variant="body1" textAlign="center">
                   {t("OR")}
+                </Typography>
+              </Box>
+              <Box bgcolor="primary.light" borderRadius="12px" p={2}>
+                <Typography variant="body1" fontWeight="bold">
+                  Username / Password
+                </Typography>
+                <Typography variant="body2">
+                  <Typography component="span" fontWeight="bold">
+                    Admin user :{" "}
+                  </Typography>{" "}
+                  admin@email.com / admin1234
+                </Typography>
+                <Typography variant="body2">
+                  <Typography component="span" fontWeight="bold">
+                    Normal user :{" "}
+                  </Typography>{" "}
+                  user@email.com / user1234
                 </Typography>
               </Box>
               <Controller
@@ -179,6 +203,16 @@ function LoginPage() {
           </Box>
         </Grid>
       </Grid>
+      <Snackbar
+        anchorOrigin={{ vertical: "top", horizontal: "center" }}
+        open={isError}
+        autoHideDuration={3000}
+        onClose={() => setIsError(false)}
+      >
+        <Alert onClose={() => setIsError(false)} severity="error">
+          {t("Invalid username or password")}
+        </Alert>
+      </Snackbar>
     </>
   );
 }

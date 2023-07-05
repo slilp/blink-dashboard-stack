@@ -8,7 +8,10 @@ export type RegisterFormType = {
 
 export const registerFormValidationSchema = (t: any) =>
   yup.object({
-    username: yup.string().required(t("Required field")),
+    username: yup
+      .string()
+      .required(t("Required field"))
+      .email(t("Invalid format")),
     password: yup.string().required(t("Required field")),
     confirmPassword: yup
       .string()
