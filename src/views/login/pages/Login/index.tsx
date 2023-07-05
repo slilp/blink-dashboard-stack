@@ -114,7 +114,7 @@ function LoginPage() {
               </Box>
               <Box bgcolor="primary.light" borderRadius="12px" p={2}>
                 <Typography variant="body1" fontWeight="bold">
-                  Username / Password
+                  {t("Username")} / {t("Password")}
                 </Typography>
                 <Typography variant="body2">
                   <Typography component="span" fontWeight="bold">
