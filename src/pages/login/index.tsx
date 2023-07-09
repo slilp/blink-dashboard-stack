@@ -10,7 +10,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   if (session) {
     return {
       redirect: {
-        destination: locale === "en" ? "/404" : `/${locale}/404`,
+        destination: locale === "en" ? "/" : `/${locale}`,
         permanent: false,
       },
     };
