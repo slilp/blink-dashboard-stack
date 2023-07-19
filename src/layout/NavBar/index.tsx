@@ -149,7 +149,7 @@ function NavBar({ drawerWidth, setExpandMobileMenu }: any) {
               onClick={() => push(asPath, asPath, { locale: "en" })}
             >
               <ListItemText>
-                <Typography variant="h5">🇹🇭</Typography>
+                <Typography variant="h5">🇬🇧</Typography>
                 EN
               </ListItemText>
             </MenuButtonStyled>
@@ -160,7 +160,7 @@ function NavBar({ drawerWidth, setExpandMobileMenu }: any) {
               onClick={() => push(asPath, asPath, { locale: "th" })}
             >
               <ListItemText>
-                <Typography variant="h5">🇬🇧</Typography>
+                <Typography variant="h5">🇹🇭</Typography>
                 TH
               </ListItemText>
             </MenuButtonStyled>
